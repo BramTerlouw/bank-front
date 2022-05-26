@@ -1,22 +1,57 @@
 <template>
-  <navigation/>
-  <router-view></router-view>
+  <router-view />
 </template>
 
 <script>
-import navigation from './components/Navigation.vue';
+
+
 
 export default {
   name: 'App',
   components: {
-    navigation
-  },
-  created() {
-    this.$store.dispatch('autoLogin');
+
+
   }
 }
 </script>
 
 <style>
+html{
+  height: 100%;
+}
 
+body {
+  background-color: #262739;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+main {
+  width: 100%;
+}
+
+h2 {
+  color: white;
+}
+
+th {
+  color: white;
+}
+
+h3 {
+  color: white;
+}
+
+h1, p {
+  color: white;
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+}
 </style>
