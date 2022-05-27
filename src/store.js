@@ -35,11 +35,14 @@ export default new Vuex.Store({
     },
     actions: {
         // eslint-disable-next-line no-unused-vars
-        login: ({ commit, dispatch }, { token, user }) => {
+        setToken: ({ commit, dispatch }, { token }) => {
             commit('SET_TOKEN', token);
-            commit('SET_USER', user);
             // set auth header
             Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            // eslint-disable-next-line no-unused-vars
+        },setUser: ({ commit, dispatch }, { user }) => {
+            commit('SET_USER', user);
+            // set auth header
         },
         logout: ({ commit }) => {
             commit('RESET', '');

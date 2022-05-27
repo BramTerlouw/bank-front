@@ -20,26 +20,26 @@
       </div>
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" pattern="[a-zA-Z][a-zA-Z0-9\s]*"
-               title="Fill in a correct lastname" v-model="lastname" placeholder="Address">
+        <input type="text" class="form-control" id="floatingInput"
+               title="Fill in a correct lastname" v-model="address" placeholder="Address">
         <label for="floatingInput">Address</label>
       </div>
 
       <div class="form-floating">
         <input type="text" class="form-control" id="floatingInput" pattern="[a-zA-Z][a-zA-Z0-9\s]*"
-               title="Fill in a correct lastname" v-model="lastname" placeholder="City">
+               title="Fill in a correct lastname" v-model="city" placeholder="City">
         <label for="floatingInput">City</label>
       </div>
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" pattern="[a-zA-Z][a-zA-Z0-9\s]*"
-               title="Fill in a correct lastname" v-model="lastname" placeholder="PostalCode">
+        <input type="text" class="form-control" id="floatingInput"
+               title="Fill in a correct lastname" v-model="postalCode" placeholder="PostalCode">
         <label for="floatingInput">PostalCode</label>
       </div>
 
       <div class="form-floating">
-        <input type="tel" class="form-control" id="floatingInput" pattern="[a-zA-Z][a-zA-Z0-9\s]*"
-               title="Fill in a correct lastname" v-model="lastname" placeholder="Phone">
+        <input type="tel" class="form-control" id="floatingInput"
+               title="Fill in a correct lastname" v-model="phone" placeholder="Phone">
         <label for="floatingInput">Phone</label>
       </div>
 
@@ -83,17 +83,25 @@ export default {
       error: "",
       firstname: "",
       lastname: "",
+      address: "",
+      city: "",
+      postalCode: "",
       password: "",
       email: "",
+      phone: ""
     }
   },
   methods: {
     async signup() {
-      await axios.post('users/signup', {
+      await axios.post('users', {
         firstname: this.firstname,
         lastname: this.lastname,
+        address: this.address,
+        city: this.city,
+        postalCode: this.postalCode,
         email: this.email,
-        password: this.password
+        password: this.password,
+        phone: this.phone
       })
           .then(response => {
             this.portfolio = response.data

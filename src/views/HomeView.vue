@@ -2,8 +2,8 @@
   <MenuBar />
   <div id="content">
     <div id="test">
-    <h1>Naam: </h1>
-    <h1>Rollen: </h1>
+    <h1>User: {{this.user["firstname"]}} {{this.user["lastname"]}} </h1>
+    <h1>Rolles: {{this.user["role"]}} </h1>
     </div>
   </div>
   <FooterBar />
@@ -13,9 +13,16 @@
 import MenuBar from "@/components/MenuBar";
 
 import FooterBar from "@/components/FooterBar";
+// import store from "@/store";
+// import AuthService from "@/services/AuthService";
 export default {
   name: "HomeView",
   components: {MenuBar,  FooterBar},
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  }
 }
 </script>
 
