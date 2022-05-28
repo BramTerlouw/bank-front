@@ -5,6 +5,7 @@
     <h1>User: {{this.user["firstname"]}} {{this.user["lastname"]}} </h1>
     <h1>Rolles: {{this.user["role"]}} </h1>
     </div>
+    <AccountOverview/>
   </div>
   <FooterBar />
 </template>
@@ -13,11 +14,12 @@
 import MenuBar from "@/components/MenuBar";
 
 import FooterBar from "@/components/FooterBar";
+import AccountOverview from "../components/Account/AccountOverview.vue";
 // import store from "@/store";
 // import AuthService from "@/services/AuthService";
 export default {
   name: "HomeView",
-  components: {MenuBar,  FooterBar},
+  components: { MenuBar, FooterBar, AccountOverview },
   computed: {
     user () {
       return this.$store.getters.getUser
