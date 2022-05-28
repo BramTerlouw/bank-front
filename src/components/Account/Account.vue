@@ -31,7 +31,6 @@ export default {
     .account-item:hover {
         border: 2px solid white;
         border-radius: 10px;
-        cursor: pointer;
     }
 
     .account-section {
