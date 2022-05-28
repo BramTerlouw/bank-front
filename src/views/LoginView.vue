@@ -2,7 +2,7 @@
 
   <body class="body-login">
   <main class="form-login">
-    <Form @submit.prevent="login">
+    <b-form @submit="login">
       <input type="hidden" name="type" value="http://localhost/users/login">
       <img id="login-logo" class="mb-4" src="/img/BBCBank-logo.svg" alt="Cryptoplussers">
       <h1 class="h3 mb-3 fw-normal">Please Login</h1>
@@ -32,7 +32,7 @@
 
 
       <p id="copyright-login" class="mt-5 mb-3 text-muted">Copyright &copy; 2022 | BBCBank</p>
-    </Form>
+    </b-form>
 
   </main>
   </body>
@@ -41,8 +41,10 @@
 
 <script>
 import AuthService from '@/services/AuthService.js';
+import {BForm} from "bootstrap-vue-3";
 export default {
   name: "LoginView",
+  components: {BForm},
   data(){
    return {
      email: '',
@@ -78,11 +80,14 @@ export default {
 <style scoped>
 
 .body-login {
+  background-color: #262739;
   display: flex;
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
 }
+
+
 
 .form-login {
   width: 100%;
@@ -105,6 +110,10 @@ export default {
 
 .form-login .form-floating:focus-within {
   z-index: 2;
+}
+
+html{
+  background-color: #262739;
 }
 
 .form-login input[type="email"] {
