@@ -1,7 +1,7 @@
 <template>
   <div class="account-item">
       <div class="account-section section-iban">
-          B Terlouw
+          {{this.user['firstname']}} {{this.user['lastname']}}
           <i class="iban-identifier">NLxxINHO0xxxxxxxxx</i>
       </div>
       <div class="account-section section-balance">
@@ -12,7 +12,13 @@
 
 <script>
 export default {
-
+    name: "Account",
+    props: {
+        user: Object,
+    },
+    mounted() {
+        console.log(this.user);
+    }
 }
 </script>
 
