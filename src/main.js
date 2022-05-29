@@ -1,10 +1,16 @@
-import "bootstrap/dist/css/bootstrap.min.css"
 import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store';
 import router from './router'
 import axios from 'axios';
 import Vuex from 'vuex';
+import BootstrapVue3 from 'bootstrap-vue-3'
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+
+
+
 axios.defaults.baseURL = 'http://localhost:8080/Groep1BankApi/bank/1.0.0/'
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
@@ -41,11 +47,5 @@ router.beforeEach((to, from, next) => {
 
 })
 
+createApp(App).use(router).use(store).use(Vuex).use(BootstrapVue3).mount('#app')
 
-
-
-
-
-createApp(App).use(router).use(store).use(Vuex).mount('#app')
-
-import "bootstrap/dist/js/bootstrap.js"

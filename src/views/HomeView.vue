@@ -30,9 +30,12 @@ export default {
 
 <style scoped>
 
+
+
 template{
   display: flex;
   flex-direction: column;
+  background-color: #262739;
 }
 
 #test{
@@ -43,6 +46,7 @@ template{
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-color: #262739;
 }
 
 td h3 {
