@@ -32,7 +32,17 @@ router.beforeEach((to, from, next) => {
         if (!store.getters.isLoggedIn) {
             next({ name: 'login' })
         } else {
-            next()
+
+            const user = store.getters.getUser;
+            if (to.matched.some(record => record.meta.requiresEmployeeRole) && user["role"].includes(1)){
+                next()
+            }
+            else if(!to.matched.some(record => record.meta.requiresEmployeeRole)){
+                next()
+            }
+            else {
+                next({ name: 'home' })
+            }
         }
     } else if(to.matched.some(record => record.meta.hideForAuth)) {
         if (store.getters.isLoggedIn) {
