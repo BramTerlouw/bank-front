@@ -4,14 +4,14 @@
         <span class="Currency-identifier">EUR</span>
     </div>
     <div class="accounts-container bg-dark">
-        <Account v-for="index in 2" :key="index"></Account>
+        <Account :user="user" v-for="index in 2" :key="index"></Account>
     </div>
     <div class="Account-overview-header">
         <h2>Savings accounts:</h2>
         <span class="Currency-identifier">EUR</span>
     </div>
     <div class="accounts-container bg-dark">
-        <Account v-for="index in 3" :key="index"></Account>
+        <Account :user="user" v-for="index in 3" :key="index"></Account>
     </div>
 </template>
 
@@ -19,7 +19,10 @@
 import Account from './Account.vue';
 export default {
     name: "AccountOverview",
-    components: { Account }
+    components: { Account },
+    props: {
+    user: Object,
+    },
 }
 </script>
 

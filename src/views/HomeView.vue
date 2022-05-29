@@ -1,8 +1,11 @@
 <template>
   <MenuBar />
   <div id="content">
-
-    <AccountOverview/>
+    <div id="test">
+    <h1>User: {{this.user["firstname"]}} {{this.user["lastname"]}} </h1>
+    <h1>Rolles: {{this.user["role"]}} </h1>
+    </div>
+    <AccountOverview :user="this.user" />
   </div>
   <FooterBar />
 </template>
