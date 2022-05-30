@@ -17,5 +17,5 @@ export default {
         return axios
             .post(url + 'users/signup', credentials)
             .then(response => response.data);
-    }
+    },
 };

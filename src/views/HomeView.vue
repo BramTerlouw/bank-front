@@ -1,7 +1,7 @@
 <template>
   <MenuBar />
   <div id="content">
-    <AccountOverview :user="this.user" />
+    <AccountOverview :user="this.user" :accounts="this.accounts"/>
   </div>
   <FooterBar />
 </template>
@@ -10,6 +10,7 @@
 import MenuBar from "@/components/MenuBar";
 import FooterBar from "@/components/FooterBar";
 import AccountOverview from "../components/Account/AccountOverview.vue";
+import axios from '../services/AccountService';
 export default {
   name: "HomeView",
   components: { MenuBar, FooterBar, AccountOverview },
@@ -17,7 +18,18 @@ export default {
     user () {
       return this.$store.getters.getUser
     }
-  }
+  },
+  data() {
+    return {
+      accounts: [],
+    }
+  },
+  created() {
+      axios.getAccountsForUser(this.user['id'])
+      .then((res) => {
+        this.accounts = res;
+      })
+  },
 }
 </script>
 

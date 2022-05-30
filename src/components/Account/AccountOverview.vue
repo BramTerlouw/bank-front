@@ -4,14 +4,18 @@
         <span class="Currency-identifier">EUR</span>
     </div>
     <div class="accounts-container bg-dark">
-        <Account :user="user" v-for="index in 2" :key="index"></Account>
+        <template v-for="account in this.accounts" :key="account">
+            <Account v-if="account['type'] == 'Current'" :user="user" :account="account"></Account>
+        </template>
     </div>
     <div class="Account-overview-header">
         <h2>Savings accounts:</h2>
         <span class="Currency-identifier">EUR</span>
     </div>
     <div class="accounts-container bg-dark">
-        <Account :user="user" v-for="index in 3" :key="index"></Account>
+        <template v-for="account in this.accounts" :key="account">
+            <Account v-if="account['type'] == 'Savings'" :user="user" :account="account"></Account>
+        </template>
     </div>
 </template>
 
@@ -22,6 +26,7 @@ export default {
     components: { Account },
     props: {
     user: Object,
+    accounts: Object,
     },
 }
 </script>
