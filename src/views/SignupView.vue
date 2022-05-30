@@ -93,23 +93,23 @@ export default {
   },
   methods: {
     async signup() {
-      await axios.post('users', {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        address: this.address,
-        city: this.city,
-        postalCode: this.postalCode,
-        email: this.email,
-        password: this.password,
-        phone: this.phone
-      })
-          .then(response => {
-            this.portfolio = response.data
-            this.$router.push('/users/login');
-          })
-          .catch(error => {
-            this.error = error.response.data.errorMessage
-          })
+
+      try {
+        await axios.post('users/signup', {
+          firstname: this.firstname,
+          lastname: this.lastname,
+          address: this.address,
+          city: this.city,
+          postalCode: this.postalCode,
+          email: this.email,
+          password: this.password,
+          phone: this.phone,
+        });
+
+        this.$router.push('/users/login');
+      } catch (error) {
+        this.error = error.response.data
+      }
 
     }
   }
