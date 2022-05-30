@@ -17,5 +17,11 @@ export default {
         return axios
             .post(url + 'users/signup', credentials)
             .then(response => response.data);
+    },
+
+    getAccountsForUser(id) {
+        return axios
+            .get(url + 'users/' + id + '/accounts')
+            .then(response => response.data);
     }
 };
