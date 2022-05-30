@@ -10,7 +10,7 @@
 import MenuBar from "@/components/MenuBar";
 import FooterBar from "@/components/FooterBar";
 import AccountOverview from "../components/Account/AccountOverview.vue";
-import axios from '../services/AuthService';
+import axios from '../services/AccountService';
 export default {
   name: "HomeView",
   components: { MenuBar, FooterBar, AccountOverview },
@@ -28,7 +28,6 @@ export default {
       axios.getAccountsForUser(this.user['id'])
       .then((res) => {
         this.accounts = res;
-        console.log(this.accounts);
       })
   },
 }

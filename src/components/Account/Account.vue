@@ -1,5 +1,5 @@
 <template>
-  <div class="account-item">
+  <div class="account-item" @click="openAccountDetails(this.account['iban'])">
       <div class="account-section section-iban">
           {{this.user['firstname']}} {{this.user['lastname']}}
           <i class="iban-identifier">{{this.account['iban']}}</i>
@@ -17,8 +17,10 @@ export default {
         user: Object,
         account: Object,
     },
-    mounted() {
-        console.log(this.user);
+    methods: {
+        openAccountDetails(iban) {
+            this.$router.push('/accounts/detail?iban=' + iban);
+        }
     }
 }
 </script>
@@ -38,6 +40,7 @@ export default {
     .account-item:hover {
         border: 2px solid white;
         border-radius: 10px;
+        cursor: pointer;
     }
 
     .account-section {
