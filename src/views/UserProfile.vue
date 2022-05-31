@@ -1,6 +1,11 @@
 <template>
   <MenuBar />
   <div id="content">
+
+    <div id="profile-container">
+
+    </div>
+
     <div id="test">
       <h1>User: {{this.user["firstname"]}} {{this.user["lastname"]}} </h1>
       <h1>Rolles: {{this.user["role"]}} </h1>
@@ -31,6 +36,13 @@ export default {
   flex-direction: column;
   background-color: #262739;
 }
+
+#profile-container{
+  background: white;
+}
+
+
+
 
 #test{
   margin-top: 50px;

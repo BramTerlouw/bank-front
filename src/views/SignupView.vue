@@ -2,7 +2,7 @@
 
   <body class="body-login">
   <main class="form-login">d
-    <form @submit.prevent="signup">
+    <b-form @submit="signup">
       <img id="login-logo" class="mb-4" src="/img/BBCBank-logo.svg"
            alt="Cryptoplussers">
       <h1 class="h3 mb-3 fw-normal">Please Signup</h1>
@@ -66,7 +66,7 @@
         </div>
       </div>
       <p id="copyright-login" class="mt-5 mb-3 text-muted">Copyright &copy; 2022 | BBCBank</p>
-    </form>
+    </b-form>
 
   </main>
   </body>
@@ -95,7 +95,7 @@ export default {
     async signup() {
 
       try {
-        await axios.post('users/signup', {
+        await axios.put('users/signup', {
           firstname: this.firstname,
           lastname: this.lastname,
           address: this.address,

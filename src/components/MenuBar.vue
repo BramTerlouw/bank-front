@@ -41,6 +41,11 @@
                 >Edit Profile
                 </router-link>
               </li>
+              <li>
+                <router-link to="/users/changepassword" class="dropdown-item" active-class="active"
+                >Change Password
+                </router-link>
+              </li>
 
 
               <li><a class="dropdown-item" @click="logout">Logout</a>
