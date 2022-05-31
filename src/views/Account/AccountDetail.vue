@@ -11,6 +11,7 @@
                   '/accounts/setLimit?iban=' + this.account['iban']
                 )
               "
+              v-if="!disableEmployeeButtons()"
               class="employee mx-1"
               variant="outline-light"
               >Set account limit</b-button
@@ -33,6 +34,7 @@
                   '/accounts/setStatus?iban=' + this.account['iban']
                 )
               "
+              v-if="!disableEmployeeButtons()"
               class="employee mx-1"
               variant="outline-light"
               >Account status</b-button
@@ -96,9 +98,15 @@ export default {
   },
   methods: {
     hideEmployeeItems() {
-      console.log(document.getElementsByClassName("employee")[0])
       document.getElementsByClassName("employee")[0].remove();
     },
+    disableEmployeeButtons() {
+      if (!this.loggedUser["role"].includes(1)) {
+            return true;
+      } else {
+        return false;
+      }
+    }
   },
 };
 </script>
