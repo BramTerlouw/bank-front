@@ -70,8 +70,8 @@ export default {
         newPin: "",
       },
       show: true,
-      account: Object,
-      user: Object,
+      account: {},
+      user: {},
       error: "",
       succes: "",
     };

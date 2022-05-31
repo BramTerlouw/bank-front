@@ -48,5 +48,17 @@ export default {
         return axios
             .put(url + 'accounts/' + iban + '/pincode', data)
             .then(response => response.data);
-    }
+    },
+
+    setLimit(iban, data) {
+        return axios
+            .put(url + 'accounts/' + iban, data)
+            .then(response => response.data);
+    },
+
+    setStatus(iban, data) {
+        return axios
+            .put(url + 'accounts/' + iban + '/activation', data)
+            .then(response => response.data);
+    },
 };
