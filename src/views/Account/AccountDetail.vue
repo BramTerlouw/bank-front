@@ -11,7 +11,7 @@
                   '/accounts/setLimit?iban=' + this.account['iban']
                 )
               "
-              class="mx-1"
+              class="employee mx-1"
               variant="outline-light"
               >Set account limit</b-button
             >
@@ -54,7 +54,7 @@
     </div>
     <div v-if="error" id="alert-box">
       <div class="alert alert-danger" role="alert">
-        {{ error.status }}, {{error.error}}
+        {{ error.status }}, {{ error.error }}
       </div>
     </div>
   </div>
@@ -71,8 +71,8 @@ export default {
   components: { MenuBar, FooterBar, Account },
   data() {
     return {
-      account: Object,
-      user: Object,
+      account: {},
+      user: {},
       error: "",
     };
   },
@@ -96,6 +96,7 @@ export default {
   },
   methods: {
     hideEmployeeItems() {
+      console.log(document.getElementsByClassName("employee")[0])
       document.getElementsByClassName("employee")[0].remove();
     },
   },

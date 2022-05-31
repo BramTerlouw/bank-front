@@ -22,11 +22,16 @@
         </b-form>
       </div>
     </div>
-    <div v-if="error" id="alert-box">
-      <div class="alert alert-danger" role="alert">
-        {{ error.status }}, {{ error.error }}
+    <div class="error-wrapper" v-if="error">
+        <b-alert show dismissible variant="danger">
+          {{ error.status }}, {{error.message}}
+        </b-alert>
       </div>
-    </div>
+    <div class="error-wrapper" v-if="succes">
+        <b-alert show dismissible variant="success">
+          {{ succes }}
+        </b-alert>
+      </div>
   </div>
   <FooterBar />
 </template>
@@ -43,22 +48,35 @@ export default {
     return {
       selected: null,
         options: [
-          { value: 'True', text: 'True' },
-          { value: 'False', text: 'False' },
+          { value: 'True', text: 'Active account' },
+          { value: 'False', text: 'Closed account' },
         ],
       show: true,
-      account: Object,
-      user: Object,
+      account: {},
+      user: {},
       error: "",
+      succes: "",
     };
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
+
+
+    async onSubmit() {
+      this.error = '';
+      this.succes = '';
+
+      try {
+        await axios.setStatus(this.account['iban'], {activated: this.selected}).then((res) => {
+          this.account['activated'] = res['activated'];
+          this.succes = "Account status succesfully changed to " + this.account['activated'];
+        })
+      } catch (error) {
+        this.error = error.response.data;
+      }
     },
-    onReset(event) {
-      event.preventDefault();
+
+
+    onReset() {
       // Reset our form values
       if (this.account['activated'] == true)
         this.selected = 'True';
@@ -71,6 +89,8 @@ export default {
       });
     },
   },
+
+  
   async created() {
     try {
       this.account = await axios.getAccountByIban(this.$route.query.iban);
@@ -88,4 +108,8 @@ export default {
 </script>
 
 <style>
+.error-wrapper {
+  width: 40vw;
+  margin: 20px auto;
+}
 </style>

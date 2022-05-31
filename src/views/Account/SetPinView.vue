@@ -40,13 +40,18 @@
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
       </div>
-    </div>
-    <div v-if="error" id="alert-box">
-      <div class="alert alert-danger" role="alert">
-        {{ error.status }}, {{ error.error }}
+  </div>
+  <div class="error-wrapper" v-if="succes">
+        <b-alert show dismissible variant="success">
+          {{ succes }}
+        </b-alert>
+      </div>
+      <div class="error-wrapper" v-if="error">
+        <b-alert show dismissible variant="danger">
+          {{ error.status }}, {{error.message}}
+        </b-alert>
       </div>
     </div>
-  </div>
   <FooterBar />
 </template>
 
@@ -56,30 +61,58 @@ import FooterBar from "@/components/FooterBar";
 import axios from "../../services/AccountService";
 import Account from "@/components/Account/Account";
 export default {
-    name: "SetPin",
-    components: { MenuBar, FooterBar, Account },
-    data() {
+  name: "SetPin",
+  components: { MenuBar, FooterBar, Account },
+  data() {
     return {
       form: {
-        oldPin: '',
-        newPin: ''
+        oldPin: "",
+        newPin: "",
       },
       show: true,
-      account: Object,
-      user: Object,
+      account: {},
+      user: {},
       error: "",
+      succes: "",
     };
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
+    
+    
+    async onSubmit() {
+      try {
+        this.error = '';
+        this.succes = '';
+
+        await axios
+          .setPin(this.account["iban"], {
+            oldPincode: this.form.oldPin,
+            newPincode: this.form.newPin,
+          })
+          .then((res) => {
+            this.account["pin"] = res["newPincode"];
+            this.succes = "Pincode succesfully changed to " + res["newPincode"];
+
+            this.form.oldPin = "";
+            this.form.newPin = "";
+            if (this.$store.getters.getUser["role"].includes(1)) {
+              this.form.oldPin = res["newPincode"];
+            }
+          })
+      } catch (error) {
+        this.error = error.response.data;
+        console.log(this.error.message);
+      }
     },
-    onReset(event) {
-      event.preventDefault();
+    
+    
+    onReset() {
       // Reset our form values
-      this.form.oldPin = ''
-      this.form.newPin = ''
+      this.form.oldPin = "";
+      this.form.newPin = "";
+      if (this.$store.getters.getUser["role"].includes(1)) {
+        this.form.oldPin = this.account["pin"];
+      }
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
@@ -87,18 +120,26 @@ export default {
       });
     },
   },
+  
+  
   async created() {
     try {
       this.account = await axios.getAccountByIban(this.$route.query.iban);
       this.user = await axios.getAccountUser(this.account["user_Id"]);
+      if (this.$store.getters.getUser["role"].includes(1)) {
+        this.form.oldPin = this.account["pin"];
+      }
     } catch (error) {
       this.error = error.response.data;
     }
   },
-}
-
+};
 </script>
 
 <style>
 
+.error-wrapper {
+  width: 40vw;
+  margin: 20px auto;
+}
 </style>

@@ -18,8 +18,14 @@
             <router-link to="/usermanagement" class="nav-link" active-class="active"
             >User Management
             </router-link>
-
           </li>
+          
+          <li class="employee nav-item" >
+            <router-link to="/accountmanagement" class="nav-link" active-class="active"
+            >Account Management
+            </router-link>
+          </li>
+          
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                aria-expanded="false">Profile</a>

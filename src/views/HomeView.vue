@@ -2,6 +2,12 @@
   <MenuBar />
   <div id="content">
     <AccountOverview :user="this.user" :accounts="this.accounts"/>
+    <div class="total-display bg-dark">
+      <div class="total-display-content">
+      <span>Total</span>
+      <span>€ {{total}}</span>
+      </div>
+    </div>
   </div>
   <FooterBar />
 </template>
@@ -22,13 +28,17 @@ export default {
   data() {
     return {
       accounts: [],
+      total: 0,
     }
   },
-  created() {
-      axios.getAccountsForUser(this.user['id'])
+  async created() {
+      await axios.getAccountsForUser(this.user['id'])
       .then((res) => {
         this.accounts = res;
-      })
+        this.accounts.forEach(account => {
+          this.total += account['balance'];
+        })
+      });
   },
 }
 </script>
@@ -56,7 +66,22 @@ td h3 {
   padding: 10px;
 }
 
+.total-display {
+  width: 70vw;
+  margin: 5px auto;
+  padding: 10px 0;
 
+  border-radius: 10px;
+}
+
+.total-display-content {
+  width: 97%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: grey;
+}
 
 
 </style>

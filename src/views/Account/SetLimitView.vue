@@ -18,6 +18,7 @@
               id="input-limit"
               v-model="form.limit"
               type="number"
+              min="1"
               required
             ></b-form-input>
           </b-form-group>
@@ -27,11 +28,16 @@
         </b-form>
       </div>
     </div>
-    <div v-if="error" id="alert-box">
-      <div class="alert alert-danger" role="alert">
-        {{ error.status }}, {{ error.error }}
+    <div class="error-wrapper" v-if="error">
+        <b-alert show dismissible variant="danger">
+          {{ error.status }}, {{error.message}}
+        </b-alert>
       </div>
-    </div>
+    <div class="error-wrapper" v-if="succes">
+        <b-alert show dismissible variant="success">
+          {{ succes }}
+        </b-alert>
+      </div>
   </div>
   <FooterBar />
 </template>
@@ -50,18 +56,29 @@ export default {
         limit: 11,
       },
       show: true,
-      account: Object,
-      user: Object,
+      account: {},
+      user: {},
       error: "",
+      succes: "",
     };
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
+    async onSubmit() {
+      this.error = '';
+      this.succes = '';
+
+      try {
+        await axios.setLimit(this.account['iban'], {absolute_Limit: this.form.limit})
+        .then((res) => {
+          this.account['absolute_Limit'] = + res['absolute_Limit'];
+          this.succes = "Limit succesfully changed to " + res['absolute_Limit'];
+        })
+      } catch(error) {
+        this.error = error.response.data;
+      }
     },
-    onReset(event) {
-      event.preventDefault();
+    onReset() {
+      
       // Reset our form values
       this.form.limit = this.account["absolute_Limit"];
       // Trick to reset/clear native browser form validation state
@@ -88,5 +105,10 @@ export default {
   width: 40vw;
   margin: 0 auto;
   border-radius: 10px;
+}
+
+.error-wrapper {
+  width: 40vw;
+  margin: 20px auto;
 }
 </style>
