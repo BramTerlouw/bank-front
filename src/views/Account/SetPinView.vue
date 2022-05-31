@@ -40,17 +40,17 @@
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
       </div>
-      <div class="error-wrapper" v-if="succes">
+  </div>
+  <div class="error-wrapper" v-if="succes">
         <b-alert show dismissible variant="success">
           {{ succes }}
         </b-alert>
       </div>
       <div class="error-wrapper" v-if="error">
         <b-alert show dismissible variant="danger">
-          {{ error }}
+          {{ error.status }}, {{error.message}}
         </b-alert>
       </div>
-  </div>
     </div>
   <FooterBar />
 </template>
@@ -98,7 +98,7 @@ export default {
             if (this.$store.getters.getUser["role"].includes(1)) {
               this.form.oldPin = res["newPincode"];
             }
-          });
+          })
       } catch (error) {
         this.error = error.response.data;
         console.log(this.error.message);

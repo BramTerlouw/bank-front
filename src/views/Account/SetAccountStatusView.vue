@@ -48,8 +48,8 @@ export default {
     return {
       selected: null,
         options: [
-          { value: 'True', text: 'True' },
-          { value: 'False', text: 'False' },
+          { value: 'True', text: 'Active account' },
+          { value: 'False', text: 'Closed account' },
         ],
       show: true,
       account: {},
@@ -59,7 +59,12 @@ export default {
     };
   },
   methods: {
+
+
     async onSubmit() {
+      this.error = '';
+      this.succes = '';
+
       try {
         await axios.setStatus(this.account['iban'], {activated: this.selected}).then((res) => {
           this.account['activated'] = res['activated'];
@@ -69,6 +74,8 @@ export default {
         this.error = error.response.data;
       }
     },
+
+
     onReset() {
       // Reset our form values
       if (this.account['activated'] == true)
@@ -82,6 +89,8 @@ export default {
       });
     },
   },
+
+  
   async created() {
     try {
       this.account = await axios.getAccountByIban(this.$route.query.iban);
