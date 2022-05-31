@@ -6,6 +6,7 @@
         <Account :user="this.user" :account="this.account"></Account>
       </div>
       <div class="form-wrapper bg-dark p-4">
+        <h3>Change account limit:</h3>
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
           <b-form-group
             id="input-group-1"

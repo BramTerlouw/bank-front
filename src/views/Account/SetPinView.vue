@@ -6,11 +6,13 @@
         <Account :user="this.user" :account="this.account"></Account>
       </div>
       <div class="form-wrapper bg-dark p-4">
+        <h3>Change account pincode:</h3>
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
           <b-form-group
             id="input-group-1"
             label="oldPin"
             label-for="input-oldPin"
+            description="Enter old pincode of this account."
           >
             <b-form-input
               id="input-oldPin"
@@ -24,6 +26,7 @@
             id="input-group-2"
             label="newPin"
             label-for="input-newPin"
+            description="Enter new pincode of this account."
           >
             <b-form-input
               id="input-newPin"
