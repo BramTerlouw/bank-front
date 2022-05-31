@@ -33,6 +33,14 @@ export default {
         if (lastname != '') {
             params += '&lastname=' + lastname;
         }
-        return axios.get(url + 'accounts?' + params).then(response => response.data);
+        return axios
+            .get(url + 'accounts?' + params)
+            .then(response => response.data);
+    },
+
+    createAccount(data) {
+        return axios
+            .post(url + 'accounts', data)
+            .then(response => response.data);
     }
 };
