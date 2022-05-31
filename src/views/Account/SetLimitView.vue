@@ -5,7 +5,7 @@
       <div class="account-wrapper bg-dark">
         <Account :user="this.user" :account="this.account"></Account>
       </div>
-      <div class="form-wrapper">
+      <div class="form-wrapper bg-dark p-4">
         <b-form @submit="onSubmit" @reset="onReset" v-if="show">
           <b-form-group
             id="input-group-1"
@@ -86,5 +86,6 @@ export default {
 .form-wrapper {
   width: 40vw;
   margin: 0 auto;
+  border-radius: 10px;
 }
 </style>
