@@ -17,5 +17,22 @@ export default {
         return axios
             .get(url + 'users/' + id)
             .then(response => response.data);
+    },
+
+    getAllAccounts(offset, limit, firstname, lastname) {
+        var params = ''
+        if (offset != null) {
+            params += '&offset=' + offset;
+        }
+        if (limit != null) {
+            params += '&limit=' + limit;
+        }
+        if (firstname != '') {
+            params += '&firstname=' + firstname;
+        }
+        if (lastname != '') {
+            params += '&lastname=' + lastname;
+        }
+        return axios.get(url + 'accounts?' + params).then(response => response.data);
     }
 };

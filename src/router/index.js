@@ -5,6 +5,7 @@ import Signup from "@/views/SignupView";
 import ChangePassword from "@/views/ChangePasswordView";
 import userProfile from "@/views/UserProfile";
 import userManagement from "@/views/UserManagement";
+import accountManagement from "@/views/Account/AccountManagementView";
 import AccountDetail from "@/views/Account/AccountDetail";
 
 import setLimit from "@/views/Account/SetLimitView";
@@ -18,6 +19,7 @@ const routes = [
     { name: 'changepassword', path: '/users/changepassword', component: ChangePassword, meta: {requiresAuth: true, title: 'Change Password'} },
     { name: 'userprofile', path: '/users/profile', component: userProfile, meta: {requiresAuth: true, title: 'User profile'} },
     { name: 'usermanagement', path: '/usermanagement', component: userManagement, meta: {requiresAuth: true, requiresEmployeeRole: true, title: 'User Management'} },
+    { name: 'accountmanagement', path: '/accountmanagement', component: accountManagement, meta: {requiresAuth: true, requiresEmployeeRole: true, title: 'Account Management'} },
     { name: 'accountDetail', path: '/accounts/detail', component: AccountDetail, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'Account details'} },
     { name: 'setLimit', path: '/accounts/setLimit', component: setLimit, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'Set Limit'} },
     { name: 'setPin', path: '/accounts/setPincode', component: setPin, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'Set Pincode'} },
