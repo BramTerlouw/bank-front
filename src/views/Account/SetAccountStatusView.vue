@@ -6,17 +6,20 @@
         <Account :user="this.user" :account="this.account"></Account>
       </div>
       <div class="form-wrapper bg-dark p-4">
+        <h3>Change account status:</h3>
+        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-form-group
             id="input-group-1"
             label="activated"
             label-for="input-activated"
+            description="Set the status of this account."
         >
         <b-form-select v-model="selected" :options="options"></b-form-select>
         </b-form-group>
 
         <b-button type="submit" variant="primary">Submit</b-button>
         <b-button type="reset" variant="danger">Reset</b-button>
-        
+        </b-form>
       </div>
     </div>
     <div v-if="error" id="alert-box">
