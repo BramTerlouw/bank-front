@@ -5,11 +5,11 @@ import Signup from "@/views/SignupView";
 import ChangePassword from "@/views/ChangePasswordView";
 import userProfile from "@/views/UserProfile";
 import userManagement from "@/views/UserManagement";
-import AccountDetail from "@/views/AccountDetail";
+import AccountDetail from "@/views/Account/AccountDetail";
 
-import setLimit from "@/views/SetLimitView";
-import setPin from "@/views/SetPinView";
-import setAccountStatus from "@/views/SetAccountStatusView";
+import setLimit from "@/views/Account/SetLimitView";
+import setPin from "@/views/Account/SetPinView";
+import setAccountStatus from "@/views/Account/SetAccountStatusView";
 
 const routes = [
     { name: 'login', path: '/users/login', component: Login, meta: {hideForAuth: true, title: 'Login'} },

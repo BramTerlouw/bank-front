@@ -34,7 +34,7 @@
 import MenuBar from "@/components/MenuBar";
 import FooterBar from "@/components/FooterBar";
 import Account from "@/components/Account/Account";
-import axios from "../services/AccountService";
+import axios from "../../services/AccountService";
 export default {
   name: "AccountDetail",
   components: { MenuBar, FooterBar, Account },
