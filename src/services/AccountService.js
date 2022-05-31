@@ -42,5 +42,11 @@ export default {
         return axios
             .post(url + 'accounts', data)
             .then(response => response.data);
+    },
+
+    setPin(iban, data) {
+        return axios
+            .put(url + 'accounts/' + iban + '/pincode', data)
+            .then(response => response.data);
     }
 };
