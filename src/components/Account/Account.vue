@@ -6,6 +6,7 @@
       </div>
       <div class="account-section section-balance">
           € {{this.account['balance']}}
+          <caption>Negative limit: - {{this.account['absolute_Limit']}}</caption>
       </div>
   </div>
 </template>
@@ -60,6 +61,9 @@ export default {
 
     .section-balance {
         width: 20%;
+    }
+
+    .section-balance, .section-balance caption {
         text-align: right;
     }
 
