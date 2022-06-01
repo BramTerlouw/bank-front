@@ -10,12 +10,17 @@
       <p>{{ account["active"] }}</p>
     </td>
     <td>
-      <b-button @click="getUser(account['user'])" v-b-modal.test>Show details</b-button>
-      <b-modal id="test" title="User details">
-        <p class="my-4 test">Firstname: {{user['firstname']}}</p>
-        <p class="my-4 test">Lastname: {{user['lastname']}}</p>
-        <p class="my-4 test">Email: {{user['email']}}</p>
-        <p class="my-4 test">Firstname: {{user['firstname']}}</p>
+      <b-button @click="getUser(account['user'])" v-b-modal.test
+        >Show details {{ account["user"] }}</b-button
+      >
+      <b-modal ok-only id="test" title="User details">
+        <ul>
+          <li>Firstname: {{ this.user["firstname"] }}</li>
+          <li>Lastname: {{ user["lastname"] }}</li>
+          <li>Email: {{ user["email"] }}</li>
+          <li>Transaction limit: € {{ user["transaction_Limit"] }}</li>
+          <li>Day limit: € {{ user["day_limit"] }}</li>
+        </ul>
       </b-modal>
     </td>
   </tr>
@@ -37,6 +42,7 @@ export default {
     getUser(id) {
       axios.getAccountUser(id).then((res) => {
         this.user = res;
+        console.log(this.user);
       });
     },
   },
@@ -44,7 +50,4 @@ export default {
 </script>
 
 <style scoped>
-.test {
-  color: black;
-}
 </style>

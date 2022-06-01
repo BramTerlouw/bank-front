@@ -26,9 +26,6 @@ export default {
   props: {
     accounts: [Object],
   },
-  methods: {
-
-  }
 }
 </script>
 
