@@ -29,6 +29,7 @@ const routes = [
     { name: 'setPin', path: '/accounts/setPincode', component: setPin, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'Set Pincode'} },
     { name: 'setAccountStatus', path: '/accounts/setStatus', component: setAccountStatus, meta: {requiresAuth: true, requiresEmployeeRole: true, title: 'Set status'} },
     { name: 'newTransaction', path: '/transactions/newTransaction', component: newTransaction, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'New Transaction'} },
+    { name: '', path: '/transactions/newTransaction', component: newTransaction, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'New Transaction'} },
     { path: '/:pathMatch(.*)*', component: Login, meta: {hideForAuth: true, title: 'Login'}}
 ];
 

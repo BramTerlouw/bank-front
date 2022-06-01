@@ -1,16 +1,17 @@
 <template>
   <div class="transaction-item">
     <div class="transaction-section section-iban">
-      <i class="iban-identifier">{{transaction['ibanFrom']}}</i>
+      <i class="iban-identifier">{{ transaction['ibanFrom'] }}</i>
     </div>
     <div class="transaction-section section-iban">
-      <i class="iban-identifier">{{transaction['ibanTo']}}</i>
+      <i class="iban-identifier">{{ transaction['ibanTo'] }}</i>
     </div>
+    <!--    todo: nice time-->
     <div class="transaction-section section-time iban-identifier">
-      {{this.transaction['iat']}}
+      {{ this.transaction['iat'] }}
     </div>
-    <div class="transaction-section section-balance iban-identifier">
-      € {{this.transaction['amount']}}
+    <div class="transaction-section section-balance iban-identifier" :class="{min: transaction['ibanFrom'] === this.$route.query.iban, plus: transaction['ibanTo'] === this.$route.query.iban}">
+      € {{ this.transaction['amount'] }}
     </div>
   </div>
 </template>
@@ -62,5 +63,13 @@ export default {
 
 .iban-identifier {
   color: grey;
+}
+
+.min {
+  color: red;
+}
+
+.plus {
+  color: green;
 }
 </style>
