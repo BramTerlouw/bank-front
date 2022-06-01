@@ -29,9 +29,12 @@
 
       </b-form>
     </div>
-
-    <div class="table-accounts bg-dark">
-      <b-table @row-clicked="onRowClicked" hover :items="items" dark></b-table>
+    <div class="pagination">
+        <button @click="this.back()">Back</button>
+        <button @click="this.next()">Next</button>
+    </div>
+    <div class="table-accounts">
+      <AccountTable :accounts="this.items"></AccountTable>
     </div>
   </div>
   <FooterBar />
@@ -40,16 +43,17 @@
 <script>
 import MenuBar from "@/components/MenuBar";
 import FooterBar from "@/components/FooterBar";
+import AccountTable from "@/components/Account/AccountTable";
 import axios from "../../services/AccountService";
 export default {
   name: "AccountManagement",
-  components: { MenuBar, FooterBar },
+  components: { MenuBar, FooterBar, AccountTable },
   data() {
     return {
       items: [],
       show: true,
       offset: 0,
-      limit: 20,
+      limit: 5,
       firstname: "",
       lastname: "",
     };
@@ -88,6 +92,16 @@ export default {
         this.show = true;
       });
     },
+    next() {
+        this.offset += 1;
+        this.fetch();
+      },
+    back() {
+      if (this.offset - 1 >= 0) {
+        this.offset -= 1;
+        this.fetch();
+      }
+    },
   },
 };
 </script>
@@ -116,5 +130,14 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   margin: 0 0 10px 0;
+}
+
+.pagination {
+  width: 150px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>
