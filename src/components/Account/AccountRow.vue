@@ -11,7 +11,7 @@
     </td>
     <td>
       <b-button @click="getUser(account['user'])" v-b-modal.test
-        >Show details {{ account["user"] }}</b-button
+        >Show details</b-button
       >
       <b-modal ok-only id="test" title="User details">
         <ul>
