@@ -2,7 +2,7 @@
 
   <body class="body-login">
   <main class="form-login">d
-    <form @submit.prevent="signup">
+    <b-form @submit="signup">
       <img id="login-logo" class="mb-4" src="/img/BBCBank-logo.svg"
            alt="Cryptoplussers">
       <h1 class="h3 mb-3 fw-normal">Please Signup</h1>
@@ -20,26 +20,26 @@
       </div>
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" pattern="[a-zA-Z][a-zA-Z0-9\s]*"
-               title="Fill in a correct lastname" v-model="lastname" placeholder="Address">
+        <input type="text" class="form-control" id="floatingInput"
+               title="Fill in a correct lastname" v-model="address" placeholder="Address">
         <label for="floatingInput">Address</label>
       </div>
 
       <div class="form-floating">
         <input type="text" class="form-control" id="floatingInput" pattern="[a-zA-Z][a-zA-Z0-9\s]*"
-               title="Fill in a correct lastname" v-model="lastname" placeholder="City">
+               title="Fill in a correct lastname" v-model="city" placeholder="City">
         <label for="floatingInput">City</label>
       </div>
 
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" pattern="[a-zA-Z][a-zA-Z0-9\s]*"
-               title="Fill in a correct lastname" v-model="lastname" placeholder="PostalCode">
+        <input type="text" class="form-control" id="floatingInput"
+               title="Fill in a correct lastname" v-model="postalCode" placeholder="PostalCode">
         <label for="floatingInput">PostalCode</label>
       </div>
 
       <div class="form-floating">
-        <input type="tel" class="form-control" id="floatingInput" pattern="[a-zA-Z][a-zA-Z0-9\s]*"
-               title="Fill in a correct lastname" v-model="lastname" placeholder="Phone">
+        <input type="tel" class="form-control" id="floatingInput"
+               title="Fill in a correct lastname" v-model="phone" placeholder="Phone">
         <label for="floatingInput">Phone</label>
       </div>
 
@@ -66,7 +66,7 @@
         </div>
       </div>
       <p id="copyright-login" class="mt-5 mb-3 text-muted">Copyright &copy; 2022 | BBCBank</p>
-    </form>
+    </b-form>
 
   </main>
   </body>
@@ -83,25 +83,33 @@ export default {
       error: "",
       firstname: "",
       lastname: "",
+      address: "",
+      city: "",
+      postalCode: "",
       password: "",
       email: "",
+      phone: ""
     }
   },
   methods: {
     async signup() {
-      await axios.post('users/signup', {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        email: this.email,
-        password: this.password
-      })
-          .then(response => {
-            this.portfolio = response.data
-            this.$router.push('/users/login');
-          })
-          .catch(error => {
-            this.error = error.response.data.errorMessage
-          })
+
+      try {
+        await axios.put('users/signup', {
+          firstname: this.firstname,
+          lastname: this.lastname,
+          address: this.address,
+          city: this.city,
+          postalCode: this.postalCode,
+          email: this.email,
+          password: this.password,
+          phone: this.phone,
+        });
+
+        this.$router.push('/users/login');
+      } catch (error) {
+        this.error = error.response.data
+      }
 
     }
   }
@@ -116,6 +124,7 @@ export default {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
+  background-color: #262739;
 }
 
 .form-login {

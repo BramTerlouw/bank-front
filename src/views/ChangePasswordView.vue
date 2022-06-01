@@ -1,15 +1,15 @@
 <template>
   <body class="body-login">
   <main class="form-login">
-    <form @submit.prevent="resetPassword">
+    <b-form @submit="resetPassword">
       <input type="hidden" name="type" value="user/changepassword">
-      <img id="login-logo" class="mb-4" src="/img/cryptoplussers-logo.svg"
+      <img id="login-logo" class="mb-4" src="/img/BBCBank-logo.svg"
            alt="Cryptoplussers">
       <h1 class="h3 mb-3 fw-normal">Change password</h1>
 
       <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword" placeholder="Old Password"
-               v-model="password">
+               v-model="oldPassword">
         <label for="floatingPassword">Old Password</label>
       </div>
       <div class="form-floating">
@@ -32,11 +32,12 @@
       </div>
       <p id="copyright-login" class="mt-5 mb-3 text-muted">Copyright &copy; 2022 | Made by
         Bastiaan van der Bijl</p>
-    </form>
+    </b-form>
 
   </main>
   </body>
 </template>
+
 
 <script>
 import axios from "axios";
@@ -46,7 +47,7 @@ export default {
   data() {
     return {
       error: "",
-      password: "",
+      oldPassword: "",
       newPassword: "",
     }
   }, computed: {
@@ -56,24 +57,22 @@ export default {
   },
   methods: {
     async resetPassword() {
-      await axios.post('users/resetpassword', {
-        email: this.user["email"],
-        newPassword: this.newPassword,
-        password: this.password
-      })
-          .then(response => {
-            this.portfolio = response.data
-            this.logout()
-          })
-          .catch(error => {
-            console.log(error.response.data.errorMessage)
-            this.error = error.response.data.errorMessage
-          })
+      const userid = this.user["id"];
+      const api = "users/"+ userid + "/password";
 
-    },
-    logout() {
-      this.$store.dispatch('logout');
-      this.$router.push('/users/login');
+      try {
+        await axios.put(api, {
+          email: this.user["email"],
+          newPassword: this.newPassword,
+          oldPassword: this.oldPassword
+        });
+
+        this.$store.dispatch('logout');
+        this.$router.push('/users/login');
+      } catch (error) {
+        this.error = error.response.data
+      }
+
     }
   }
 }
@@ -84,6 +83,7 @@ export default {
   display: flex;
   align-items: center;
   padding-top: 40px;
+  background-color: #262739;
   padding-bottom: 40px;
 }
 

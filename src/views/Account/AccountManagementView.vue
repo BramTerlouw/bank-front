@@ -1,0 +1,120 @@
+<template>
+  <MenuBar />
+  <div id="content">
+    <div class="account-filter-wrapper">
+      
+      <b-form @submit="onSubmit" @reset="onReset" class="form" v-if="show">
+        <b-form-group id="input-group-1">
+          <b-form-input
+            id="input-firstname"
+            v-model="firstname"
+            type="text"
+            placeholder="Enter firstname..."
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group id="input-group-2">
+          <b-form-input
+            id="input-lastname"
+            v-model="lastname"
+            type="text"
+            placeholder="Enter lastname..."
+          ></b-form-input>
+        </b-form-group>
+
+        <div class="filter-buttons">
+          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-button type="reset" variant="danger">Reset</b-button>
+        </div>
+
+      </b-form>
+    </div>
+
+    <div class="table-accounts bg-dark">
+      <b-table @row-clicked="onRowClicked" hover :items="items" dark></b-table>
+    </div>
+  </div>
+  <FooterBar />
+</template>
+
+<script>
+import MenuBar from "@/components/MenuBar";
+import FooterBar from "@/components/FooterBar";
+import axios from "../../services/AccountService";
+export default {
+  name: "AccountManagement",
+  components: { MenuBar, FooterBar },
+  data() {
+    return {
+      items: [],
+      show: true,
+      offset: 0,
+      limit: 20,
+      firstname: "",
+      lastname: "",
+    };
+  },
+  async created() {
+    this.fetch();
+  },
+  methods: {
+    async fetch() {
+        this.items = [];
+        await axios
+      .getAllAccounts(this.offset, this.limit, this.firstname, this.lastname)
+      .then((res) => {
+        res.forEach((item) => {
+          this.items.push({
+            iban: item["iban"],
+            type: item["type"],
+            active: item["activated"],
+            user: item["user_Id"],
+          });
+        });
+      })
+    },
+    onSubmit() {
+      this.fetch();
+    },
+    onReset(event) {
+      event.preventDefault();
+      // Reset our form values
+      this.firstname = "";
+      this.lastname = "";
+      this.fetch();
+      // Trick to reset/clear native browser form validation state
+      this.show = false;
+      this.$nextTick(() => {
+        this.show = true;
+      });
+    },
+  },
+};
+</script>
+
+<style>
+.account-filter-wrapper {
+  width: 20vw;
+  margin: 0 0 0 10vw;
+}
+
+.form {
+  margin: 20px 0 0 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.table-accounts {
+  width: 80vw;
+  margin: 0 auto;
+  border-radius: 10px;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0 0 10px 0;
+}
+</style>

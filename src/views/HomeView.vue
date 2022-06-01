@@ -1,9 +1,12 @@
 <template>
   <MenuBar />
   <div id="content">
-    <div id="test">
-    <h1>Naam: </h1>
-    <h1>Rollen: </h1>
+    <AccountOverview :user="this.user" :accounts="this.accounts"/>
+    <div class="total-display bg-dark">
+      <div class="total-display-content">
+      <span>Total</span>
+      <span>€ {{total}}</span>
+      </div>
     </div>
   </div>
   <FooterBar />
@@ -11,29 +14,51 @@
 
 <script>
 import MenuBar from "@/components/MenuBar";
-
 import FooterBar from "@/components/FooterBar";
+import AccountOverview from "../components/Account/AccountOverview.vue";
+import axios from '../services/AccountService';
 export default {
   name: "HomeView",
-  components: {MenuBar,  FooterBar},
+  components: { MenuBar, FooterBar, AccountOverview },
+  computed: {
+    user () {
+      return this.$store.getters.getUser
+    }
+  },
+  data() {
+    return {
+      accounts: [],
+      total: 0,
+    }
+  },
+  async created() {
+      await axios.getAccountsForUser(this.user['id'])
+      .then((res) => {
+        this.accounts = res;
+        this.accounts.forEach(account => {
+          this.total += account['balance'];
+        })
+      });
+  },
 }
 </script>
 
 <style scoped>
 
+
+
 template{
   display: flex;
   flex-direction: column;
+  background-color: #262739;
 }
 
-#test{
-  margin-top: 50px;
-}
 
 #content {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  background-color: #262739;
 }
 
 td h3 {
@@ -41,23 +66,22 @@ td h3 {
   padding: 10px;
 }
 
+.total-display {
+  width: 70vw;
+  margin: 5px auto;
+  padding: 10px 0;
 
-
-.portfolio-head h1 {
-  text-align: center;
-  padding: 10px;
+  border-radius: 10px;
 }
 
-.portfolio-head h3 {
-  text-align: center;
-  padding: 15px;
+.total-display-content {
+  width: 97%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: grey;
 }
 
-.footer-container {
-  margin-top: 30px;
-}
 
-.coin-edit-container {
-  padding-top: 15px;
-}
 </style>

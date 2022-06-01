@@ -17,7 +17,7 @@ export default {
 
 <style>
 html{
-  height: 100%;
+  background-color: #262739;
 }
 
 body {
@@ -30,6 +30,7 @@ body {
 
 main {
   width: 100%;
+  background-color: #262739;
 }
 
 h2 {
