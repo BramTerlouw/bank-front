@@ -11,7 +11,7 @@
     </td>
     <td>
       <b-button @click="getUser(account['user'])" v-b-modal.test
-        >Show details</b-button
+        >Show user</b-button
       >
       <b-modal ok-only id="test" title="User details">
         <ul>
@@ -23,6 +23,11 @@
         </ul>
       </b-modal>
     </td>
+    <td>
+      <b-button @click="routeToEdit(account['iban'])"
+        >Edit</b-button
+      >
+    </td>
   </tr>
 </template>
 
@@ -31,7 +36,7 @@ import axios from "../../services/AccountService";
 export default {
   name: "AccountRow",
   props: {
-    account: Object,
+    account: {},
   },
   data() {
     return {
@@ -42,9 +47,11 @@ export default {
     getUser(id) {
       axios.getAccountUser(id).then((res) => {
         this.user = res;
-        console.log(this.user);
       });
     },
+    routeToEdit(iban) {
+      this.$router.push('/accounts/detail?iban=' + iban);
+    }
   },
 };
 </script>
