@@ -39,7 +39,7 @@
       <b-form-input
           id="input-amount"
           v-model="form.amount"
-          type="number"
+          type="text"
           required
       ></b-form-input>
     </b-form-group>
