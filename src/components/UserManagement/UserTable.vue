@@ -146,8 +146,6 @@ export default {
 
         var api = 'users?offset='+this.form.offset.toString()+'&limit='+this.form.limit.toString()+'&firstname='+this.form.firstname.toString()+'&lastname='+this.form.lastname.toString() +'&activated='+this.form.active.toString()+'&hasaccount='+ this.form.account.toString()
 
-        console.log(api)
-
         axios.get(api)
             .then(response => {
               this.userList = response.data
@@ -162,7 +160,6 @@ export default {
 
     onSubmit(event) {
       event.preventDefault()
-      alert(JSON.stringify(this.form))
 
       if(this.form.filterUserActive.includes("true") && this.form.filterUserActive.includes("false")){
         this.form.active = ""
