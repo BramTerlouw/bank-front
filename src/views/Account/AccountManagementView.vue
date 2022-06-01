@@ -31,7 +31,7 @@
     </div>
 
     <div class="table-accounts bg-dark">
-      <b-table @row-clicked="onRowClicked" hover :items="items" dark></b-table>
+      <AccountTable :accounts="this.items"></AccountTable>
     </div>
   </div>
   <FooterBar />
@@ -40,10 +40,11 @@
 <script>
 import MenuBar from "@/components/MenuBar";
 import FooterBar from "@/components/FooterBar";
+import AccountTable from "@/components/Account/AccountTable";
 import axios from "../../services/AccountService";
 export default {
   name: "AccountManagement",
-  components: { MenuBar, FooterBar },
+  components: { MenuBar, FooterBar, AccountTable },
   data() {
     return {
       items: [],
