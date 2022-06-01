@@ -33,7 +33,7 @@
         <button @click="this.back()">Back</button>
         <button @click="this.next()">Next</button>
     </div>
-    <div class="table-accounts bg-dark">
+    <div class="table-accounts">
       <AccountTable :accounts="this.items"></AccountTable>
     </div>
   </div>
@@ -134,7 +134,7 @@ export default {
 
 .pagination {
   width: 150px;
-  margin: 10px auto;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: row;

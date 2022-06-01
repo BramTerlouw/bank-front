@@ -1,7 +1,7 @@
 <template>
   <tr>
     <td>
-      <p>{{account['iban']}}</p>
+      <p>- {{account['iban']}}</p>
     </td>
     <td>
       <p>{{account['type']}}</p>
