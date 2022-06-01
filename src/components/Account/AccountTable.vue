@@ -6,8 +6,9 @@
         <tr id="row">
           <th scope="col">Iban</th>
           <th scope="col">Type</th>
-          <th scope="col">Active</th>
+          <th scope="col">Account active</th>
           <th scope="col">User</th>
+          <th scope="col"></th>
         </tr>
         </thead>
         <tbody class="bg-dark" v-for="account in accounts" :key="account"  id="portfolio-table">
