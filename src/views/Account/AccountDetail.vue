@@ -41,7 +41,15 @@
             >
           </b-button-group>
           <b-button-group class="mx-1">
-            <b-button class="mx-1" variant="outline-light">Transfer</b-button>
+            <b-button
+                class="mx-1"
+                variant="outline-light"
+                @click="
+                this.$router.push(
+                  '/transactions/newTransaction?iban=' + this.account['iban']
+                )
+              "
+            >Transfer</b-button>
           </b-button-group>
         </b-button-toolbar>
       </div>
@@ -52,7 +60,11 @@
       <div class="Account-overview-header">
         <h2>Transactions:</h2>
       </div>
-      <div class="transaction-wrapper bg-dark"></div>
+      <div class="transaction-wrapper bg-dark">
+        <template v-for="transaction in this.transactions" :key="transaction">
+          <Transaction :transaction="transaction"></Transaction>
+        </template>
+      </div>
     </div>
     <div v-if="error" id="alert-box">
       <div class="alert alert-danger" role="alert">
@@ -68,13 +80,17 @@ import MenuBar from "@/components/MenuBar";
 import FooterBar from "@/components/FooterBar";
 import Account from "@/components/Account/Account";
 import axios from "../../services/AccountService";
+import axios2 from "../../services/TransactionService";
+import Transaction from "@/components/Transactions/Transaction";
+
 export default {
   name: "AccountDetail",
-  components: { MenuBar, FooterBar, Account },
+  components: { MenuBar, FooterBar, Account, Transaction },
   data() {
     return {
       account: {},
       user: {},
+      transactions: {},
       error: "",
     };
   },
@@ -82,6 +98,10 @@ export default {
     try {
       this.account = await axios.getAccountByIban(this.$route.query.iban);
       this.user = await axios.getAccountUser(this.account["user_Id"]);
+      await axios2.getAllTransactionsFromAccount(this.account["iban"])
+          .then((res) => {
+            this.transactions = res;
+          });
     } catch (error) {
       this.error = error.response.data;
     }
@@ -106,7 +126,7 @@ export default {
       } else {
         return false;
       }
-    }
+    },
   },
 };
 </script>
@@ -137,7 +157,7 @@ template {
   width: 70vw;
   height: 500px;
   margin: 10px auto;
-
+  padding: 1px;
   border-radius: 10px;
 }
 
