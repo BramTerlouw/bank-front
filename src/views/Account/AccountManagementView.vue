@@ -29,7 +29,10 @@
 
       </b-form>
     </div>
-
+    <div class="pagination">
+        <button @click="this.back()">Back</button>
+        <button @click="this.next()">Next</button>
+    </div>
     <div class="table-accounts bg-dark">
       <AccountTable :accounts="this.items"></AccountTable>
     </div>
@@ -50,7 +53,7 @@ export default {
       items: [],
       show: true,
       offset: 0,
-      limit: 20,
+      limit: 5,
       firstname: "",
       lastname: "",
     };
@@ -89,6 +92,16 @@ export default {
         this.show = true;
       });
     },
+    next() {
+        this.offset += 1;
+        this.fetch();
+      },
+    back() {
+      if (this.offset - 1 >= 0) {
+        this.offset -= 1;
+        this.fetch();
+      }
+    },
   },
 };
 </script>
@@ -117,5 +130,14 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   margin: 0 0 10px 0;
+}
+
+.pagination {
+  width: 150px;
+  margin: 10px auto;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>
