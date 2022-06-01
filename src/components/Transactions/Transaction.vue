@@ -1,9 +1,11 @@
 <template>
   <div class="transaction-item">
     <div class="transaction-section section-iban">
+      <p>From:</p>
       <i class="iban-identifier">{{ transaction['ibanFrom'] }}</i>
     </div>
     <div class="transaction-section section-iban">
+      <p>To:</p>
       <i class="iban-identifier">{{ transaction['ibanTo'] }}</i>
     </div>
     <!--    todo: nice time-->
