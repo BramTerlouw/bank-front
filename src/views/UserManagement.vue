@@ -1,7 +1,7 @@
 <template>
   <MenuBar />
 <div id="content">
-<h1>user management</h1>
+<user-table></user-table>
 </div>
   <FooterBar />
 </template>
@@ -9,10 +9,11 @@
 <script>
 import MenuBar from "@/components/MenuBar";
 import FooterBar from "@/components/FooterBar";
+import UserTable from "@/components/UserManagement/UserTable";
 
 export default {
   name: "UserManagement",
-  components: { MenuBar, FooterBar },
+  components: {UserTable, MenuBar, FooterBar },
 }
 </script>
 
