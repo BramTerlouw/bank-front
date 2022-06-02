@@ -35,7 +35,7 @@ export default {
     .accounts-container {
         width: 70vw;
         margin: 0 auto;
-
+        min-height: 100px;
         border-radius: 10px;
     }
 
