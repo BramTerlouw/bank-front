@@ -1,4 +1,3 @@
-
 <template>
   <div class="transaction-item">
     <div class="transaction-section section-iban">
@@ -9,7 +8,6 @@
       <p>To:</p>
       <i class="iban-identifier">{{ transaction['ibanTo'] }}</i>
     </div>
-    <!--    todo: nice time-->
     <div class="transaction-section section-time iban-identifier">
       {{ moment(this.transaction['iat']).format("YYYY-MM-DD HH:mm") }}
     </div>

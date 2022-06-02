@@ -1,18 +1,17 @@
 <template>
   <b-form @submit="onSubmit" @reset="onReset" v-if="show">
     <b-form-group
+        v-if="this.$store.getters.getUser['role'].includes(1)"
         id="input-group-1"
         label="activated"
         label-for="input-ibanFrom"
         description="The Account to Transfer From."
     >
-<!--      todo: if employee make enabled-->
       <b-form-input
           id="input-ibanFrom"
           v-model="form.ibanFrom"
           type="text"
           required
-          disabled
       ></b-form-input>
 
     </b-form-group>
