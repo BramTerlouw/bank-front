@@ -21,7 +21,7 @@ axios.interceptors.response.use(function (response) {
     console.log(error.response.data)
     if (error.response.status === 401) {
         store.dispatch('logout')
-        router.push('/login')
+        router.push('/users/login')
     }
     return Promise.reject(error)
 })

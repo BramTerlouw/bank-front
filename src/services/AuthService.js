@@ -13,6 +13,12 @@ export default {
             .then(response => response);
     },
 
+    resetPassword(credentials){
+        return axios
+            .put(url + 'users/'+ credentials.userid +'/password', credentials)
+            .then(response => response.data);
+    },
+
     signUp(credentials) {
         return axios
             .post(url + 'users/signup', credentials)
