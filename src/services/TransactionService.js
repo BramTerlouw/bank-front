@@ -38,12 +38,12 @@ export default {
     },
     deposit(iban ,data){
         return axios
-            .post(url + "/accounts/"+ iban +"/deposit", data)
+            .post(url + "accounts/"+ iban +"/deposit", data)
             .then(response => response.data);
     },
     withdraw(iban, data){
         return axios
-            .post(url + "/accounts/"+ iban +"/withdraw", data)
+            .post(url + "accounts/"+ iban +"/withdraw", data)
             .then(response => response.data);
     },
     getAllTransactionsFromAccount(iban){

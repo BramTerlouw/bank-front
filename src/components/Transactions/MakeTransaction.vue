@@ -6,7 +6,7 @@
         label-for="input-ibanFrom"
         description="The Account to Transfer From."
     >
-      //todo: if employee make enabled
+<!--      todo: if employee make enabled-->
       <b-form-input
           id="input-ibanFrom"
           v-model="form.ibanFrom"

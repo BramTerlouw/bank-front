@@ -39,6 +39,15 @@
               variant="outline-light"
               >Account status</b-button
             >
+            <b-button
+              @click="
+                this.$router.push(
+                  '/accounts/atm?iban='+ this.account['iban']
+                )
+              "
+              class=" mx-1"
+              variant="outline-light"
+              >ATM</b-button>
           </b-button-group>
           <b-button-group class="mx-1">
             <b-button
@@ -155,7 +164,7 @@ template {
 
 .transaction-wrapper {
   width: 70vw;
-  height: 500px;
+  min-height: 500px;
   margin: 10px auto;
   padding: 1px;
   border-radius: 10px;
