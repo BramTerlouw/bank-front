@@ -4,7 +4,7 @@
           {{this.user['firstname']}} {{this.user['lastname']}}
           <i class="iban-identifier">{{this.account['iban']}}</i>
       </div>
-      <div class="account-section section-balance">
+      <div class="account-section section-balance" :class="{neg: this.account['balance'] < 0 }">
           € {{this.account['balance']}}
       </div>
   </div>
@@ -65,5 +65,8 @@ export default {
 
     .iban-identifier {
         color: grey;
+    }
+    .neg{
+      color: red;
     }
 </style>
