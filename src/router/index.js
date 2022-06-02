@@ -14,6 +14,7 @@ import setPin from "@/views/Account/SetPinView";
 import setAccountStatus from "@/views/Account/SetAccountStatusView";
 // transactions
 import newTransaction from "@/views/Transactions/newTransactionView";
+import ATM from "@/views/Transactions/ATM";
 
 const routes = [
     { name: 'login', path: '/users/login', component: Login, meta: {hideForAuth: true, title: 'Login'} },
@@ -29,7 +30,7 @@ const routes = [
     { name: 'setPin', path: '/accounts/setPincode', component: setPin, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'Set Pincode'} },
     { name: 'setAccountStatus', path: '/accounts/setStatus', component: setAccountStatus, meta: {requiresAuth: true, requiresEmployeeRole: true, title: 'Set status'} },
     { name: 'newTransaction', path: '/transactions/newTransaction', component: newTransaction, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'New Transaction'} },
-    { name: '', path: '/transactions/newTransaction', component: newTransaction, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'New Transaction'} },
+    { name: 'atm', path: '/accounts/atm', component: ATM, meta: {requiresAuth: true, requiresEmployeeRole: false, title: 'atm'} },
     { path: '/:pathMatch(.*)*', component: Login, meta: {hideForAuth: true, title: 'Login'}}
 ];
 
