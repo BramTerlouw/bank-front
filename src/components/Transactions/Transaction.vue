@@ -1,3 +1,4 @@
+
 <template>
   <div class="transaction-item">
     <div class="transaction-section section-iban">
@@ -10,7 +11,7 @@
     </div>
     <!--    todo: nice time-->
     <div class="transaction-section section-time iban-identifier">
-      {{ this.transaction['iat'] }}
+      {{ moment(this.transaction['iat']).format("YYYY-MM-DD HH:mm") }}
     </div>
     <div class="transaction-section section-balance iban-identifier" :class="{min: transaction['ibanFrom'] === this.$route.query.iban, plus: transaction['ibanTo'] === this.$route.query.iban}">
       € {{ this.transaction['amount'] }}
@@ -19,10 +20,16 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "Transaction",
   props: {
     transaction: Object,
+  },
+  methods: {
+    moment: function () {
+      return moment();
+    }
   },
   show: true,
 }
@@ -56,6 +63,10 @@ export default {
 .section-iban {
   width: 80%;
   text-align: left;
+}
+
+.section-time{
+  width: 200px;
 }
 
 .section-balance {
