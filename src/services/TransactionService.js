@@ -50,5 +50,10 @@ export default {
         return axios
             .get(url + "accounts/"+ iban +"/transactions")
             .then(response => response.data);
+    },
+    getSpends(iban){
+        return axios
+            .get(url + "accounts/" + iban +"/spend")
+            .then(response => response.data);
     }
 }

@@ -124,20 +124,12 @@ export default {
       this.error = error.response.data;
     }
   },
-  mounted() {
-    if (!this.loggedUser["role"].includes(1)) {
-      this.hideEmployeeItems();
-    }
-  },
   computed: {
     loggedUser() {
       return this.$store.getters.getUser;
     },
   },
   methods: {
-    hideEmployeeItems() {
-      document.getElementsByClassName("employee")[0].remove();
-    },
     disableEmployeeButtons() {
       if (!this.loggedUser["role"].includes(1)) {
         return true;

@@ -35,6 +35,7 @@
         label-for="input-amount"
         description="The Amount to Transfer."
     >
+      <p> Day limit: €{{user['day_limit']}} / €{{spend['spend']}} : Today spend, Transaction limit: €{{user['transaction_Limit']}}</p>
       <b-form-input
           id="input-amount"
           v-model="form.amount"
@@ -76,6 +77,7 @@
 <script>
 import {BFormInput} from "bootstrap-vue-3";
 import axios from "@/services/TransactionService";
+import axiosAccount from "@/services/AccountService";
 
 export default {
   name: "Transaction",
@@ -88,6 +90,9 @@ export default {
         amount: "",
         pin: "",
       },
+      user: {},
+      account: {},
+      spend: '0',
       error: '',
       succes: '',
       show: true,
@@ -96,6 +101,9 @@ export default {
   async created() {
     try {
       this.form.ibanFrom = this.$route.query.iban;
+      this.account = await axiosAccount.getAccountByIban(this.$route.query.iban);
+      this.user = await axiosAccount.getAccountUser(this.account['user_Id']);
+      this.spend = await axios.getSpends(this.$route.query.iban);
     } catch (error) {
       this.error = error.response.data;
     }
@@ -114,7 +122,6 @@ export default {
                   pin: this.form.pin,
                 }
             )
-            //.then(this.$router.push('/accounts/detail?iban=' + this.form.ibanFrom))
             .then((res) => this.succes = "Transaction from " + res['ibanFrom'] + " to " + res['ibanTo'] + " succeeded");
       } catch (error) {
         this.error = error.response.data;

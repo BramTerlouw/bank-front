@@ -1,7 +1,7 @@
 <template>
   <MenuBar />
   <div id="content">
-    <div v-if="this.error == ''" class="content-wrapper">
+    <div class="content-wrapper">
       <div class="account-wrapper bg-dark">
         <Account :user="this.user" :account="this.account"></Account>
       </div>
@@ -39,8 +39,7 @@
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
       </div>
-  </div>
-  <div class="error-wrapper" v-if="succes">
+      <div class="error-wrapper" v-if="succes">
         <b-alert show dismissible variant="success">
           {{ succes }}
         </b-alert>
@@ -50,6 +49,7 @@
           {{ error.status }}, {{error.message}}
         </b-alert>
       </div>
+  </div>
     </div>
   <FooterBar />
 </template>
@@ -136,7 +136,7 @@ export default {
 <style>
 
 .error-wrapper {
-  width: 40vw;
+  width: 70%;
   margin: 20px auto;
 }
 </style>
