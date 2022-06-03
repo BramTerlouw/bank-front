@@ -2,7 +2,6 @@
   <MenuBar />
   <div id="content">
     <div class="account-filter-wrapper">
-      
       <b-form @submit="onSubmit" @reset="onReset" class="form" v-if="show">
         <b-form-group id="input-group-1">
           <b-form-input
@@ -26,12 +25,11 @@
           <b-button type="submit" variant="primary">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </div>
-
       </b-form>
     </div>
     <div class="pagination">
-        <button @click="this.back()">Back</button>
-        <button @click="this.next()">Next</button>
+      <button @click="this.back()">Back</button>
+      <button @click="this.next()">Next</button>
     </div>
     <div class="table-accounts">
       <AccountTable :accounts="this.items"></AccountTable>
@@ -63,39 +61,40 @@ export default {
   },
   methods: {
     async fetch() {
-        this.items = [];
-        await axios
-      .getAllAccounts(this.offset, this.limit, this.firstname, this.lastname)
-      .then((res) => {
-        res.forEach((item) => {
-          this.items.push({
-            iban: item["iban"],
-            type: item["type"],
-            active: item["activated"],
-            user: item["user_Id"],
-          });
+      this.items = [];
+      await axios
+        .getAllAccounts(this.offset, this.limit, this.firstname, this.lastname)
+        .then((res) => {
+          this.items = res;
         });
-      })
     },
+
+
     onSubmit() {
       this.fetch();
     },
-    onReset(event) {
-      event.preventDefault();
+
+
+    onReset() {
       // Reset our form values
       this.firstname = "";
       this.lastname = "";
       this.fetch();
+      
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
       });
     },
+
+
     next() {
-        this.offset += 1;
-        this.fetch();
-      },
+      this.offset += 1;
+      this.fetch();
+    },
+
+
     back() {
       if (this.offset - 1 >= 0) {
         this.offset -= 1;

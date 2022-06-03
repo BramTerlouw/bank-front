@@ -18,7 +18,6 @@
               id="input-oldPin"
               v-model="form.oldPin"
               type="text"
-              required
             ></b-form-input>
           </b-form-group>
 
@@ -126,9 +125,7 @@ export default {
     try {
       this.account = await axios.getAccountByIban(this.$route.query.iban);
       this.user = await axios.getAccountUser(this.account["user_Id"]);
-      if (this.$store.getters.getUser["role"].includes(1)) {
-        this.form.oldPin = this.account["pin"];
-      }
+
     } catch (error) {
       this.error = error.response.data;
     }

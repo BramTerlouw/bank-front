@@ -7,10 +7,10 @@
       <p>{{ account["type"] }}</p>
     </td>
     <td>
-      <p>{{ account["active"] }}</p>
+      <p>{{ account["activated"] }}</p>
     </td>
     <td>
-      <b-button @click="getUser(account['user'])" v-b-modal.test
+      <b-button @click="getUser(account['user_Id'])" v-b-modal.test
         >Show user</b-button
       >
       <b-modal ok-only id="test" title="User details">
