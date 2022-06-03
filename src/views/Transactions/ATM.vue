@@ -1,7 +1,7 @@
 <template>
   <MenuBar/>
   <div id="content">
-    <div v-if="this.error == ''" class="">
+    <div class="">
       <div class="Account-overview-header">
         <h2 v-if="showPin">PinCode:</h2>
       </div>
@@ -21,6 +21,18 @@
 
         <b-button type="submit" variant="primary">Submit</b-button>
         <b-button type="reset" variant="danger">Reset</b-button>
+        
+        <div class="error-wrapper" v-if="this.error">
+        <b-alert show dismissible variant="danger">
+          {{ error.status }}, {{ error.message }}
+        </b-alert>
+      </div>
+      <div class="error-wrapper" v-if="succes">
+        <b-alert show dismissible variant="success">
+          {{ succes }}
+        </b-alert>
+      </div>
+
       </b-form>
 
 
@@ -35,16 +47,7 @@
         <withdraw></withdraw>
       </div>
 
-      <div class="error-wrapper" v-if="this.error">
-        <b-alert show dismissible variant="danger">
-          {{ error.status }}, {{ error.message }}
-        </b-alert>
-      </div>
-      <div class="error-wrapper" v-if="succes">
-        <b-alert show dismissible variant="success">
-          {{ succes }}
-        </b-alert>
-      </div>
+      
     </div>
   </div>
   <FooterBar/>
@@ -87,6 +90,7 @@ export default {
             .then((res) => {
               this.PinCorrect = res['isValid'];
               this.showPin = false;});
+
       } catch (error) {
         this.error = error.response.data;
         console.log(this.error);
@@ -109,6 +113,12 @@ export default {
 .container {
   width: 70vw;
   margin: 0 auto;
+  padding: 10px;
   border-radius: 10px;
+}
+
+.error-wrapper {
+  width: 100%;
+  margin: 10px auto;
 }
 </style>

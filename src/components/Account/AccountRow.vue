@@ -10,10 +10,10 @@
       <p>{{ account["activated"] }}</p>
     </td>
     <td>
-      <b-button @click="getUser(account['user_Id'])" v-b-modal.test
+      <b-button @click="getUser(account['user_Id'])"
         >Show user</b-button
       >
-      <b-modal ok-only id="test" title="User details">
+      <b-modal v-model="this.show" ok-only id="test" title="User details">
         <ul>
           <li>Firstname: {{ this.user["firstname"] }}</li>
           <li>Lastname: {{ user["lastname"] }}</li>
@@ -41,13 +41,15 @@ export default {
   data() {
     return {
       user: {},
+      show: false,
     };
   },
   methods: {
-    getUser(id) {
-      axios.getAccountUser(id).then((res) => {
+    async getUser(id) {
+      await axios.getAccountUser(id).then((res) => {
         this.user = res;
       });
+      this.show = true;
     },
     routeToEdit(iban) {
       this.$router.push('/accounts/detail?iban=' + iban);

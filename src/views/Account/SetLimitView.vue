@@ -18,7 +18,7 @@
               id="input-limit"
               v-model="form.limit"
               type="number"
-              min="1"
+              min="0"
               required
             ></b-form-input>
           </b-form-group>
