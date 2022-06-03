@@ -1,53 +1,57 @@
 <template>
-  <MenuBar />
+  <MenuBar/>
   <div id="content">
     <div v-if="this.error == ''" class="content-wrapper">
       <div class="toolbar-wrapper">
         <b-button-toolbar justify>
           <b-button-group class="mx-1">
             <b-button
-              @click="
+                @click="
                 this.$router.push(
                   '/accounts/setLimit?iban=' + this.account['iban']
                 )
               "
-              v-if="!disableEmployeeButtons()"
-              class="employee mx-1"
-              variant="outline-light"
-              >Set account limit</b-button
+                v-if="!disableEmployeeButtons()"
+                class="employee mx-1"
+                variant="outline-light"
+            >Set account limit
+            </b-button
             >
 
             <b-button
-              @click="
+                @click="
                 this.$router.push(
                   '/accounts/setPincode?iban=' + this.account['iban']
                 )
               "
-              class="mx-1"
-              variant="outline-light"
-              >Set pincode</b-button
+                class="mx-1"
+                variant="outline-light"
+            >Set pincode
+            </b-button
             >
 
             <b-button
-              @click="
+                @click="
                 this.$router.push(
                   '/accounts/setStatus?iban=' + this.account['iban']
                 )
               "
-              v-if="!disableEmployeeButtons()"
-              class="employee mx-1"
-              variant="outline-light"
-              >Account status</b-button
+                v-if="!disableEmployeeButtons()"
+                class="employee mx-1"
+                variant="outline-light"
+            >Account status
+            </b-button
             >
             <b-button
-              @click="
+                @click="
                 this.$router.push(
                   '/accounts/atm?iban='+ this.account['iban']
                 )
               "
-              class=" mx-1"
-              variant="outline-light"
-              >ATM</b-button>
+                class=" mx-1"
+                variant="outline-light"
+            >ATM
+            </b-button>
           </b-button-group>
           <b-button-group class="mx-1">
             <b-button
@@ -58,7 +62,8 @@
                   '/transactions/newTransaction?iban=' + this.account['iban']
                 )
               "
-            >Transfer</b-button>
+            >Transfer
+            </b-button>
           </b-button-group>
         </b-button-toolbar>
       </div>
@@ -68,7 +73,11 @@
 
       <div class="Account-overview-header">
         <h2>Transactions:</h2>
+        <div class="account-section section-balance" :class="{neg: this.account['balance'] < 0 }">
+          <caption>User Day limit: €{{ this.user['day_limit'] }}</caption>
+        </div>
       </div>
+
       <div class="transaction-wrapper bg-dark">
         <template v-for="transaction in this.transactions" :key="transaction">
           <Transaction :transaction="transaction"></Transaction>
@@ -81,7 +90,7 @@
       </div>
     </div>
   </div>
-  <FooterBar />
+  <FooterBar/>
 </template>
 
 <script>
@@ -94,7 +103,7 @@ import Transaction from "@/components/Transactions/Transaction";
 
 export default {
   name: "AccountDetail",
-  components: { MenuBar, FooterBar, Account, Transaction },
+  components: {MenuBar, FooterBar, Account, Transaction},
   data() {
     return {
       account: {},
@@ -131,7 +140,7 @@ export default {
     },
     disableEmployeeButtons() {
       if (!this.loggedUser["role"].includes(1)) {
-            return true;
+        return true;
       } else {
         return false;
       }
