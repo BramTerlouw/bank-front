@@ -74,7 +74,7 @@
       <div class="Account-overview-header">
         <h2>Transactions:</h2>
         <div class="account-section section-balance" :class="{neg: this.account['balance'] < 0 }">
-          <caption>User Day limit: €{{ this.user['day_limit'] }}</caption>
+          <caption>User Day limit: € {{ this.user['day_limit'] }}</caption>
         </div>
       </div>
 
