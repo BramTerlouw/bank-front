@@ -83,12 +83,20 @@ export default {
         this.error = '';
         this.succes = '';
 
-        if (this.account["pin"] === this.pin) {
-          this.PinCorrect = true;
-          this.showPin = false;
-        } else this.error = "The pin was not correct"
+        var data =
+        console.log(data);
+        await axios.authenticateAccount({iban: this.$route.query.iban, pincode: this.pin})
+            .then(this.PinCorrect = this.response['isValid']);
+
+        console.log(this.PinCorrect);
+
+
+        // if (this.account["pin"] === this.pin) {
+        //   this.PinCorrect = true;
+        //   this.showPin = false;
+        // } else this.error = "The pin was not correct"
       } catch (error) {
-        this.error = error.response.data;
+        this.error = error.response;
         console.log(this.error.message);
       }
     },

@@ -61,4 +61,10 @@ export default {
             .put(url + 'accounts/' + iban + '/activation', data)
             .then(response => response.data);
     },
+
+    authenticateAccount(data){
+        return axios
+            .get(url + 'accounts/authentication', data)
+            .then(response => response.data);
+    }
 };
