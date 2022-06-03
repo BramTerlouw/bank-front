@@ -15,16 +15,20 @@ axios.defaults.baseURL = 'http://localhost:8080/Groep1BankApi/bank/1.0.0/'
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
 
+
 axios.interceptors.response.use(function (response) {
     return response
 }, function (error) {
-    console.log(error.response.data)
-    if (error.response.status === 401) {
+    if (error.response.status === 401 || error.response.status === 0 || error.message === "Network Error") {
         store.dispatch('logout')
         router.push('/users/login')
     }
     return Promise.reject(error)
 })
+
+
+
+
 const DEFAULT_TITLE = 'BBCBank';
 router.beforeEach((to, from, next) => {
     document.title = DEFAULT_TITLE +" | "+ to.meta.title || DEFAULT_TITLE;

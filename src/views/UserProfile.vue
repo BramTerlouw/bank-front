@@ -1,7 +1,6 @@
 <template>
   <MenuBar />
   <div id="content">
-
     <div id="profile-container">
       <b-form @submit="changeUserDetails">
         <b-form-group

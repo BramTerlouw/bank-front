@@ -158,10 +158,8 @@ export default {
         axios.get(api)
             .then(response => {
               this.userList = response.data
-              console.log(response.data)
             })
             .catch(error => {
-              console.log(error)
               this.errors = error
             })
       }
