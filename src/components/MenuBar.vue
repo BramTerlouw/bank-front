@@ -20,7 +20,7 @@
             </router-link>
           </li>
           
-          <li class="employee nav-item" >
+          <li class="employeee nav-item" >
             <router-link to="/accountmanagement" class="nav-link" active-class="active"
             >Account Management
             </router-link>
@@ -77,6 +77,7 @@ export default {
 
     hideEmployeeItems(){
       document.getElementsByClassName('employee')[0].remove();
+      document.getElementsByClassName('employeee')[0].remove();
     },
 
     logout() {

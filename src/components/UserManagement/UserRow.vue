@@ -186,6 +186,8 @@
                 v-model="modalUserDetails.transactionLimit"
                 placeholder="Enter a Transaction Limit"
                 type="number"
+                min="1"
+                step="1"
             ></b-form-input>
 
           </b-form-group>
@@ -200,6 +202,8 @@
                 v-model="modalUserDetails.dayLimit"
                 placeholder="Enter a Day Limit"
                 type="number"
+                min="1"
+                step="1"
             ></b-form-input>
 
           </b-form-group>
@@ -368,7 +372,6 @@ export default {
         this.DetailsAlert.text = response
         this.DetailsAlert.variant = "success"
         this.DetailsAlert.show = true
-        this.modalUserPassword.newPassword = "";
       } catch (error) {
         this.DetailsAlert.text = error.response.data
         this.DetailsAlert.variant = "danger"
