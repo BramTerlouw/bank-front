@@ -35,7 +35,7 @@
         <withdraw></withdraw>
       </div>
 
-      <div class="error-wrapper" v-if="error">
+      <div class="error-wrapper" v-if="this.error">
         <b-alert show dismissible variant="danger">
           {{ error.status }}, {{ error.message }}
         </b-alert>
@@ -83,21 +83,13 @@ export default {
         this.error = '';
         this.succes = '';
 
-        var data =
-        console.log(data);
         await axios.authenticateAccount({iban: this.$route.query.iban, pincode: this.pin})
-            .then(this.PinCorrect = this.response['isValid']);
-
-        console.log(this.PinCorrect);
-
-
-        // if (this.account["pin"] === this.pin) {
-        //   this.PinCorrect = true;
-        //   this.showPin = false;
-        // } else this.error = "The pin was not correct"
+            .then((res) => {
+              this.PinCorrect = res['isValid'];
+              this.showPin = false;});
       } catch (error) {
-        this.error = error.response;
-        console.log(this.error.message);
+        this.error = error.response.data;
+        console.log(this.error);
       }
     },
     onReset() {

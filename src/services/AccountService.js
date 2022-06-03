@@ -38,6 +38,12 @@ export default {
             .then(response => response.data);
     },
 
+    authenticateAccount(data){
+        return axios
+            .post(url + 'accounts/authentication', data)
+            .then(response => response.data);
+    },
+
     createAccount(data) {
         return axios
             .post(url + 'accounts', data)
@@ -62,9 +68,5 @@ export default {
             .then(response => response.data);
     },
 
-    authenticateAccount(data){
-        return axios
-            .get(url + 'accounts/authentication', data)
-            .then(response => response.data);
-    }
+
 };
