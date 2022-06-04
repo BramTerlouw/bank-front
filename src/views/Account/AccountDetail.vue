@@ -73,6 +73,121 @@
 
       <div class="Account-overview-header">
         <h2>Transactions:</h2>
+
+        <div id="topbox">
+          <b-button v-b-modal.modal-1 variant="primary">Filter options</b-button>
+          <b-modal id="modal-1" title="Transaction filter options" ok-disabled cancel-disabled
+                   hide-footer>
+            <b-form @submit="onSubmitModal" @reset="onResetModal" v-if="showModal">
+              <b-form-group
+                  v-if="!disableEmployeeButtons()"
+                  id="input-group-1"
+                  label="IBAN from:"
+                  label-for="input-from"
+              >
+                <b-form-input
+                    id="input-from"
+                    v-model="form.iban_from"
+                    placeholder="Enter IBAN from"
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                  id="input-group-1"
+                  label="IBAN to:"
+                  label-for="input-to"
+              >
+                <b-form-input
+                    id="input-to"
+                    v-model="form.iban_to"
+                    placeholder="Enter IBAN to"
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                  id="input-group-1"
+                  label="Balance operator:"
+                  label-for="input-op"
+              >
+                <b-form-input
+                    id="input-op"
+                    v-model="form.balance_operator"
+                    placeholder=" <, ==, >, <=, >="
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                  id="input-group-1"
+                  label="Balance:"
+                  label-for="input-bal"
+              >
+                <b-form-input
+                    id="input-bal"
+                    v-model="form.balance"
+                    placeholder="100,00"
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                  id="input-group-1"
+                  label="Start date:"
+                  label-for="input-start"
+              >
+                <b-form-input
+                    id="input-start"
+                    v-model="form.start_date"
+                    placeholder="Enter start date"
+                    type="date"
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                  id="input-group-1"
+                  label="End date:"
+                  label-for="input-end"
+              >
+                <b-form-input
+                    id="input-end"
+                    v-model="form.end_date"
+                    placeholder="Enter end date"
+                    type="date"
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                  id="input-group-1"
+                  label="Offset:"
+                  label-for="input-off"
+              >
+                <b-form-input
+                    id="input-off"
+                    v-model="form.offset"
+                    placeholder="Enter offset"
+                    type="number"
+                    min="0"
+                ></b-form-input>
+              </b-form-group>
+
+              <b-form-group
+                  id="input-group-1"
+                  label="Limit:"
+                  label-for="input-lim"
+              >
+                <b-form-input
+                    id="input-lim"
+                    v-model="form.limit"
+                    type="number"
+                    min="1"
+                    placeholder="Enter limit"
+                ></b-form-input>
+              </b-form-group>
+
+              <b-button type="reset" variant="danger">Reset</b-button>
+              <b-button type="submit" variant="primary">Apply</b-button>
+            </b-form>
+          </b-modal>
+
+        </div>
         <div class="account-section section-balance" :class="{neg: this.account['balance'] < 0 }">
           <caption>User Day limit: € {{ this.user['day_limit'] }}</caption>
         </div>
@@ -100,17 +215,30 @@ import Account from "@/components/Account/Account";
 import axios from "../../services/AccountService";
 import axios2 from "../../services/TransactionService";
 import Transaction from "@/components/Transactions/Transaction";
+import {BModal} from "bootstrap-vue-3";
 
 export default {
   name: "AccountDetail",
-  components: {MenuBar, FooterBar, Account, Transaction},
+  components: {MenuBar, FooterBar, Account, Transaction, BModal},
   data() {
     return {
       account: {},
       user: {},
       transactions: {},
       error: "",
+      form: {
+        offset: 0,
+        limit: 50,
+        end_date: null,
+        start_date: null,
+        iban_from: this.$route.query.iban,
+        iban_to: null,
+        balance_operator: null,
+        balance: null
+      },
+      showModal: true
     };
+
   },
   async created() {
     try {
@@ -136,6 +264,36 @@ export default {
       } else {
         return false;
       }
+    },
+    onSubmitModal(event) {
+      event.preventDefault()
+      try {
+        axios2.getAllTransactions(this.form.offset, this.form.limit, this.form.start_date, this.form.end_date, this.form.iban_from, this.form.iban_to, this.form.balance_operator, this.form.balance)
+            .then((res) => this.transactions = res)
+      } catch (error) {
+        this.error = error.response.data;
+      }
+    },
+    onResetModal(event) {
+      event.preventDefault()
+      // Reset our form values
+      this.form.iban_from = this.account["iban"]
+      this.form.iban_to = ''
+      this.form.balance_operator = ""
+      this.form.balance = ""
+      this.form.start_date = ""
+      this.form.end_date = ""
+      this.form.limit = 50
+      this.form.offset = 0
+      axios2.getAllTransactionsFromAccount(this.account["iban"])
+          .then((res) => {
+            this.transactions = res;
+          });
+      // Trick to reset/clear native browser form validation state
+      this.showModal = false
+      this.$nextTick(() => {
+        this.showModal = true
+      })
     },
   },
 };

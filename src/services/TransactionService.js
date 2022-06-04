@@ -21,10 +21,10 @@ export default {
             params += '&end_date=' + end_date;
         }
         if (ibanFrom != null) {
-            params += '&IBAN_From=' + ibanFrom;
+            params += '&IBAN From=' + ibanFrom;
         }
         if (ibanTo != null) {
-            params += '&IBAN_To=' + ibanTo;
+            params += '&IBAN To=' + ibanTo;
         }
         if (balance_operator != null) {
             params += '&balance operator=' + balance_operator;
