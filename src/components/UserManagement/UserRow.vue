@@ -47,6 +47,7 @@
       <b-button style="margin: 5px" @click="modalUserRoles.show = !modalUserRoles.show" variant="primary">Edit Roles</b-button>
       <b-button style="margin: 5px" @click="addAccount" variant="primary">Add Accounts</b-button>
       <b-button style="margin: 5px" @click="loadUserDetails" variant="primary">Edit Details</b-button>
+      <b-button style="margin: 5px" @click="loadUserActivation" variant="primary">Edit Activation</b-button>
     </div>
   </b-modal>
 
@@ -220,6 +221,21 @@
     <b-alert dismissible :variant="DetailsAlert.variant" v-model="DetailsAlert.show">{{DetailsAlert.text}}</b-alert>
   </b-modal>
 
+  <b-modal v-model="modalUserActivation.show" title="Edit Activation" ok-disabled cancel-disabled hide-footer>
+    <b-form @submit="changeActivation"  >
+      <b-form-group label="Set role" v-slot="{ ariaDescribedby }">
+        <b-form-radio v-model="modalUserActivation.userActivated" :aria-describedby="ariaDescribedby" name="activationRadio" value="true">Activated</b-form-radio>
+        <b-form-radio v-model="modalUserActivation.userActivated" :aria-describedby="ariaDescribedby" name="activationRadio" value="false">Deactivated</b-form-radio>
+      </b-form-group>
+
+
+      <b-button type="submit" variant="primary">Apply</b-button>
+    </b-form>
+
+    <b-alert dismissible :variant="ActivationAlert.variant" v-model="ActivationAlert.show">{{ActivationAlert.text}}</b-alert>
+  </b-modal>
+
+
 
 </template>
 <script>
@@ -279,6 +295,17 @@ export default {
         dayLimit: 0
       },
 
+      ActivationAlert: {
+        show: false,
+        variant: "danger",
+        text: "test"
+      },
+
+      modalUserActivation: {
+        show: false,
+        userActivated: "true"
+      },
+
 
       modalUserEditOption: false,
       roles: "",
@@ -336,9 +363,38 @@ export default {
         this.modalUserRoles.show =false;
         this.modalUserPassword.show = false;
         this.modalUserEditOption = false;
+      this.modalUserActivation.show = false;
       this.$emit('refresh')
     },
 
+    async changeActivation(){
+      try {
+        const credentials = {
+          userid: this.user.id,
+          activated: this.modalUserActivation.userActivated,
+        };
+        const response = await UserService.changeUserActivation(credentials);
+
+        this.ActivationAlert.text = response
+        this.ActivationAlert.variant = "success"
+        this.ActivationAlert.show = true
+      } catch (error) {
+        this.ActivationAlert.text = error.response.data
+        this.ActivationAlert.variant = "danger"
+        this.ActivationAlert.show = true
+      }
+      this.modalUserDetails.show = false;
+      this.modalUserRoles.show =false;
+      this.modalUserPassword.show = false;
+      this.modalUserEditOption = false;
+      this.modalUserActivation.show = false;
+      this.$emit('refresh')
+    },
+
+    loadUserActivation(){
+      this.modalUserActivation.userActivated = this.user.activated;
+      this.modalUserActivation.show = !this.modalUserActivation.show;
+    },
 
     loadUserDetails(){
       this.modalUserDetails.firstname = this.user.firstname
@@ -382,6 +438,7 @@ export default {
       this.modalUserRoles.show =false;
       this.modalUserPassword.show = false;
       this.modalUserEditOption = false;
+      this.modalUserActivation.show = false;
       this.$emit('refresh')
     },
 

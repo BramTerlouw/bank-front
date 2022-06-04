@@ -13,4 +13,10 @@ export default {
             .put(url + 'users/'+ credentials.userid, credentials)
             .then(response => response.data);
     },
+
+    changeUserActivation(credentials){
+        return axios
+            .put(url + 'users/'+ credentials.userid + '/activation', credentials)
+            .then(response => response.data);
+    },
 };

@@ -41,6 +41,7 @@
 
 <script>
 import axios from "axios";
+import AuthService from "@/services/AuthService";
 
 export default {
   name: "ResetPasswordScreen",
@@ -57,15 +58,15 @@ export default {
   },
   methods: {
     async resetPassword() {
-      const userid = this.user["id"];
-      const api = "users/"+ userid + "/password";
 
       try {
-        await axios.put(api, {
-          email: this.user["email"],
-          newPassword: this.newPassword,
-          oldPassword: this.oldPassword
-        });
+        const credentials = {
+          userid: this.user.id,
+          oldPassword: this.oldPassword,
+          newPassword: this.newPassword
+        };
+
+        await AuthService.resetPassword(credentials);
 
         this.$store.dispatch('logout');
         this.$router.push('/users/login');
