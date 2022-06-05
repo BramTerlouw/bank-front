@@ -74,7 +74,6 @@
 </template>
 
 <script>
-// import axios from "axios";
 import AuthService from "@/services/AuthService";
 
 export default {
@@ -96,17 +95,6 @@ export default {
     async signup() {
 
       try {
-        // await axios.put('users/signup', {
-        //   firstname: this.firstname,
-        //   lastname: this.lastname,
-        //   address: this.address,
-        //   city: this.city,
-        //   postalCode: this.postalCode,
-        //   email: this.email,
-        //   password: this.password,
-        //   phone: this.phone,
-        // });
-
 
         const credentials = {
           firstname: this.firstname,
