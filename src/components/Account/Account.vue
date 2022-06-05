@@ -60,7 +60,7 @@ export default {
     }
 
     .section-balance {
-        width: 21%;
+        width: 25%;
     }
 
     .section-balance, .section-balance caption {
