@@ -246,6 +246,7 @@ import UserService from "@/services/UserService";
 
 export default {
   name: "UserRow",
+  emits: ["refresh"],
   props: {
     user: Object
   },

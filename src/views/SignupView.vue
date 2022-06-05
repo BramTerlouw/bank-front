@@ -50,7 +50,7 @@
       <div class="form-floating">
         <input type="password" class="form-control" id="floatingPassword" v-model="password"
                placeholder="Password">
-        <label for="floatingPassword">Password</label>
+        <label for="floatingPassword">Password (Min 2 Uppercase characters)</label>
       </div>
 
 
@@ -74,7 +74,8 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
+import AuthService from "@/services/AuthService";
 
 export default {
   name: "SignupScreen",
@@ -95,7 +96,19 @@ export default {
     async signup() {
 
       try {
-        await axios.put('users/signup', {
+        // await axios.put('users/signup', {
+        //   firstname: this.firstname,
+        //   lastname: this.lastname,
+        //   address: this.address,
+        //   city: this.city,
+        //   postalCode: this.postalCode,
+        //   email: this.email,
+        //   password: this.password,
+        //   phone: this.phone,
+        // });
+
+
+        const credentials = {
           firstname: this.firstname,
           lastname: this.lastname,
           address: this.address,
@@ -103,8 +116,12 @@ export default {
           postalCode: this.postalCode,
           email: this.email,
           password: this.password,
-          phone: this.phone,
-        });
+          phone: this.phone
+        };
+
+        await AuthService.signUp(credentials);
+
+
 
         this.$router.push('/users/login');
       } catch (error) {
