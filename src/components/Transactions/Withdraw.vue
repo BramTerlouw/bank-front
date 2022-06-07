@@ -57,7 +57,6 @@ export default {
         this.succes = ("Successfully withdrawn €" + this.form.amount + " from your account");
       } catch (error) {
         this.error = error.response.data;
-        console.log(this.error.message);
       }
     },
     onReset() {

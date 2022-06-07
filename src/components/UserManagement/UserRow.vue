@@ -329,7 +329,6 @@ export default {
               this.amountAccounts = response.data.length
             })
             .catch(error => {
-              console.log(error)
               this.errors = error
             })
       }
