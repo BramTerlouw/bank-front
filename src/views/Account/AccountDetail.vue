@@ -201,7 +201,7 @@
     </div>
     <div v-if="error" id="alert-box">
       <div class="alert alert-danger" role="alert">
-        {{ error.status }}, {{ error.error }}
+        {{ error.status }}, {{ error.message }}
       </div>
     </div>
   </div>
