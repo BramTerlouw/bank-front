@@ -1,7 +1,7 @@
 <template>
   <MenuBar/>
   <div id="content">
-    <div  class="content-wrapper">
+    <div v-if="this.error == ''" class="content-wrapper">
       <div class="toolbar-wrapper">
         <b-button-toolbar justify>
           <b-button-group class="mx-1">
@@ -271,7 +271,6 @@ export default {
       try {
         let start = moment(String(this.form.start_date)).format("YYYY-MM-DD")
         let end = moment(String(this.form.end_date)).format("YYYY-MM-DD")
-        console.log(this.form.start_date)
         axios2.getAllTransactions(this.form.offset, this.form.limit, start, end, this.form.iban_from, this.form.iban_to, this.form.balance_operator, this.form.balance)
             .then((res) => this.transactions = res)
       } catch (error) {
