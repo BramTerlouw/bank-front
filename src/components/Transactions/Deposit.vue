@@ -57,7 +57,6 @@ export default {
         this.succes = ("Successfully deposit €" + this.form.amount + " to your account");
       } catch (error) {
         this.error = error.response.data;
-        console.log(this.error);
       }
     },
     onReset() {

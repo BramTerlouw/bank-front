@@ -125,7 +125,6 @@ export default {
             .then((res) => this.succes = "Transaction from " + res['ibanFrom'] + " to " + res['ibanTo'] + " succeeded");
       } catch (error) {
         this.error = error.response.data;
-        console.log(this.error.message);
       }
     },
     onReset() {

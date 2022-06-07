@@ -93,7 +93,6 @@ export default {
 
       } catch (error) {
         this.error = error.response.data;
-        console.log(this.error);
       }
     },
     onReset() {
