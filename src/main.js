@@ -11,7 +11,7 @@ import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
 
 
-axios.defaults.baseURL = 'http://localhost:8080/Groep1BankApi/bank/1.0.0/'
+axios.defaults.baseURL = 'https://api.bbcbank.nl/'
 
 axios.defaults.headers.common['Authorization'] = `Bearer ${store.state.token}`;
 
