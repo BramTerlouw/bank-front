@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'http://localhost:8080/Groep1BankApi/bank/1.0.0/'
+const url = 'https://api.bbcbank.nl/'
 export default {
 
     changeRole(credentials){
