@@ -1,7 +1,7 @@
 <template>
   <MenuBar/>
   <div id="content">
-    <div v-if="this.error == ''" class="content-wrapper">
+    <div  class="content-wrapper">
       <div class="toolbar-wrapper">
         <b-button-toolbar justify>
           <b-button-group class="mx-1">
@@ -216,6 +216,7 @@ import axios from "../../services/AccountService";
 import axios2 from "../../services/TransactionService";
 import Transaction from "@/components/Transactions/Transaction";
 import {BModal} from "bootstrap-vue-3";
+import moment from 'moment';
 
 export default {
   name: "AccountDetail",
@@ -268,10 +269,13 @@ export default {
     onSubmitModal(event) {
       event.preventDefault()
       try {
-        axios2.getAllTransactions(this.form.offset, this.form.limit, this.form.start_date, this.form.end_date, this.form.iban_from, this.form.iban_to, this.form.balance_operator, this.form.balance)
+        let start = moment(String(this.form.start_date)).format("YYYY-MM-DD")
+        let end = moment(String(this.form.end_date)).format("YYYY-MM-DD")
+        console.log(this.form.start_date)
+        axios2.getAllTransactions(this.form.offset, this.form.limit, start, end, this.form.iban_from, this.form.iban_to, this.form.balance_operator, this.form.balance)
             .then((res) => this.transactions = res)
       } catch (error) {
-        this.error = error.response.data;
+        this.error = error;
       }
     },
     onResetModal(event) {
