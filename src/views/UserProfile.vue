@@ -215,7 +215,6 @@ export default {
           transaction_Limit: this.modalUserDetails.transactionLimit
         };
         const response = await UserService.changeUserDetails(credentials);
-
         const token = response.token
         await this.$store.dispatch('setToken', { token});
         this.DetailsAlert.text = "User details successfully changed!"
